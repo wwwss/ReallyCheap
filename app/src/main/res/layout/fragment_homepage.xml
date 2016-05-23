@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/orange">
+
+
+        <TextView
+            android:id="@+id/shopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_slightlybigger" />
+
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="@dimen/title_height"
+            android:layout_toRightOf="@+id/shopName"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/down_icon" />
+
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="44dp"
+            android:layout_height="@dimen/title_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/search_big_icon" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <tsingcloud.android.reallycheap.widgets.view.SlideShowView
+                    android:id="@+id/slideshowView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="120dp" />
+
+
+                <tsingcloud.android.reallycheap.widgets.view.SAGridView
+                    android:id="@+id/classifyGridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:listSelector="#00000000"
+                    android:numColumns="4"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="14dp"
+                    android:scrollbars="none"
+                    android:verticalSpacing="12dp" />
+
+                <ListView
+                    android:id="@+id/classifyListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/line_bg"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:fadingEdge="none"
+                    android:divider="@null"
+                    android:listSelector="@android:color/transparent"
+                    android:scrollbars="none" />
+            </LinearLayout>
+        </ScrollView>
+
+
+
+        <ImageView
+            android:id="@+id/upward"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="104dp"
+            android:layout_marginRight="@dimen/margin_large"
+            android:scaleType="centerInside"
+            android:visibility="invisible"
+            android:src="@drawable/upward_icon" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <tsingcloud.android.core.widgets.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/title_height"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadingEdge="none"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:id="@+id/receiving"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/receiving"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/receiving"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入收货人姓名"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color_grey"
+                    android:textColorHint="@color/text_color_dark"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+
+            <include layout="@layout/widget_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:id="@+id/phone_num"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/phone_num"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <EditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/phone_num"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入收货人手机号码"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color_grey"
+                    android:textColorHint="@color/text_color_dark"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+
+            <include layout="@layout/widget_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:id="@+id/receiving_address"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/receiving_address"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/receivingAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/receiving_address"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="50dp"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:id="@+id/positioning"
+                    android:layout_width="44dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/defaultAddress"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/positioning_icon" />
+            </RelativeLayout>
+
+
+            <include layout="@layout/widget_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:id="@+id/detail_address"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/detail_address"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <EditText
+                    android:id="@+id/detailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/detail_address"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入收货人详细地址"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color_grey"
+                    android:textColorHint="@color/text_color_dark"
+                    android:textSize="@dimen/text_size_small" />
+
+
+            </RelativeLayout>
+
+
+            <include layout="@layout/widget_line" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <ImageView
+                    android:id="@+id/isDefault"
+                    android:layout_width="44dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/address_selector_bg" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/isDefault"
+                    android:gravity="center_vertical"
+                    android:text="设为默认地址：每次下单会使用该地址"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/determine"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="@string/determine"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_normal" />
+</LinearLayout>

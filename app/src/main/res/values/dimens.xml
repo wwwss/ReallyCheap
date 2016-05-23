@@ -1,0 +1,45 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="line_height">1dp</dimen>
+    <!-- 字体大小（特大） -->
+    <dimen name="text_size_larger">24sp</dimen>
+    <!-- 字体大小（大） -->
+    <dimen name="text_size_large">20sp</dimen>
+    <!-- 字体大小（微大） -->
+    <dimen name="text_size_slightlybigger">18sp</dimen>
+    <!-- 字体大小（中） -->
+    <dimen name="text_size_normal">16sp</dimen>
+    <!-- 字体大小（中） -->
+    <dimen name="text_size_normal_min">15sp</dimen>
+    <!-- 字体大小（小） -->
+    <dimen name="text_size_small">14sp</dimen>
+    <!-- 字体大小（微小） -->
+    <dimen name="text_size_min">12sp</dimen>
+    <!-- 字体大小（微小） -->
+    <dimen name="text_size_min_min">10sp</dimen>
+
+    <!-- 间距（特大） -->
+    <dimen name="margin_larger">24dp</dimen>
+    <!-- 间距（大） -->
+    <dimen name="margin_large">16dp</dimen>
+    <!-- 间距（微大） -->
+    <dimen name="margin_general_big">10dp</dimen>
+    <!-- 间距（中） -->
+    <dimen name="margin_general">8dp</dimen>
+    <!-- 间距（微中） -->
+    <dimen name="margin_general_min">5dp</dimen>
+    <!-- 间距（小） -->
+    <dimen name="margin_small">4dp</dimen>
+    <!-- 间距（特小） -->
+    <dimen name="margin_smaller">1dp</dimen>
+
+
+    <!-- 可点击视图最小宽高度 -->
+    <dimen name="view_min_width">48dp</dimen>
+
+    <!-- 标题栏高度 -->
+    <dimen name="title_height">45dp</dimen>
+    <!-- 导航栏高度 -->
+    <dimen name="navigation_bar_height">49dp</dimen>
+
+</resources>

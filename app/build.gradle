@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    defaultConfig {
+        applicationId "tsingcloud.android.reallycheap"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        //参数说明
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "sMiAnv2teHAzXZzc47rne2",
+                GETUI_APP_KEY   : "Z8rKKfvsHc7DP0ZMLNnSc7",
+                GETUI_APP_SECRET: "hLQYTLhcrM7sHCMljCViC9",
+                PACKAGE_NAME    : "tsingcloud.android.reallycheap"
+        ]
+//APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
+    }
+    signingConfigs {
+        release {
+            storeFile file("zsh.jks")
+            storePassword "zsh123456"
+            keyAlias "醉食汇"
+            keyPassword "zsh123456"
+        }
+    }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile project(':core')
+    compile files('libs/android-custom-vg.2.6.0.jar')
+    compile files('libs/AMap_3DMap_V3.3.0_20160331.jar')
+    compile files('libs/AMap_Location_V2.4.1_20160414.jar')
+    compile files('libs/AMap_Search_V3.2.1_20160308.jar')
+    compile files('libs/alipaySdk-20160427.jar')
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'jp.wasabeef:glide-transformations:2.0.0'
+    // If you want to use the GPU Filters
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.3.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    compile 'com.qiniu:qiniu-android-sdk:7.2.0'
+    compile 'com.getui:sdk:+'
+    compile 'com.getui:ext:+'
+}

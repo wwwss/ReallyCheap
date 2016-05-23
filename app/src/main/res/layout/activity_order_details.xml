@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <tsingcloud.android.core.widgets.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/title_height" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/orderStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/orange"
+                android:gravity="center"
+                android:minHeight="50dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_normal" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:paddingLeft="10dp">
+
+                <ImageView
+                    android:id="@+id/location_icon"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/location_icon" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:minHeight="25dp"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:singleLine="true"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
+                    android:gravity="center_vertical"
+                    android:minHeight="25dp"
+                    android:paddingLeft="10dp"
+                    android:layout_toRightOf="@+id/location_icon"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/line_bg" />
+
+            <TextView
+                android:id="@+id/shopName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="25dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_small" />
+
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/line_bg"
+                android:cacheColorHint="#00000000"
+                android:divider="@color/white"
+                android:dividerHeight="@dimen/margin_small"
+                android:fadingEdge="none"
+                android:listSelector="#00000000"
+                android:scrollbars="none" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="45dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/total_price"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:id="@+id/productsPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/freight"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:id="@+id/freight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:visibility="gone"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/cope_with"
+                    android:visibility="gone"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:id="@+id/copeWith"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/line_bg" />
+
+            <TextView
+                android:id="@+id/orderNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="25dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_min" />
+
+            <TextView
+                android:id="@+id/orderTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="25dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_min" />
+
+            <TextView
+                android:id="@+id/payWay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="25dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_min" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="25dp"
+                android:paddingLeft="10dp"
+                android:text="@string/cancel_order_hint"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_min" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/back_black_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/product_details"
+            android:textColor="@color/text_color_grey"
+            android:textSize="@dimen/text_size_slightlybigger" />
+
+        <ImageView
+            android:id="@+id/goShoppingCart"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_toLeftOf="@+id/collection"
+            android:scaleType="centerCrop"
+            android:src="@drawable/go_shopping_cart_icon" />
+
+        <ImageView
+            android:id="@+id/collection"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/collect_bg" />
+    </RelativeLayout>
+
+    <include layout="@layout/widget_line" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fadingEdge="none"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <tsingcloud.android.reallycheap.widgets.view.SlideShowView
+                android:id="@+id/slideshowView"
+                android:layout_width="fill_parent"
+                android:layout_height="225dp" />
+
+            <include layout="@layout/widget_line" />
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_large"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/productSpecification"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_large"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/productPrice"
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_large"
+                android:textColor="@color/text_color_red"
+                android:textSize="@dimen/text_size_small" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/line_bg" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="49dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_large"
+                android:text="@string/product_recommendation"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_small" />
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/line_bg"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@null"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none" />
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:background="@color/translucent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_large"
+            android:text="@string/send_price_hint"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <TextView
+            android:id="@+id/addShoppingCart"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/orange"
+            android:gravity="center"
+            android:minWidth="120dp"
+            android:paddingLeft="@dimen/margin_large"
+            android:text="@string/add_shopping_cart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_normal" />
+
+    </RelativeLayout>
+</LinearLayout>

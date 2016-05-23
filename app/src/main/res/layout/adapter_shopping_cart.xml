@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/categoryName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/line_bg"
+        android:gravity="center_vertical"
+        android:minHeight="30dp"
+        android:paddingLeft="20dp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_small"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/isSelect"
+            android:layout_width="44dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shopping_cart_item_is_select_bg" />
+
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/margin_small"
+            android:scaleType="fitXY" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/productName"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_small" />
+
+            <TextView
+                android:id="@+id/productSpecification"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_below="@+id/productName"
+                android:gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/text_size_small" />
+
+
+            <TextView
+                android:id="@+id/productCurrentPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_below="@+id/productSpecification"
+                android:gravity="center_vertical"
+                android:text="@string/app_name"
+                android:textColor="@color/text_color_red"
+                android:textSize="@dimen/text_size_small" />
+
+            <LinearLayout
+                android:id="@+id/editProductNum"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/shopping_cat_item_edit_product_num_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/subtract"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="3dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/shopping_cart_subtract_icon" />
+
+                <TextView
+                    android:id="@+id/productNum"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <ImageView
+                    android:id="@+id/plus"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginRight="3dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/shopping_cart_add_icon" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

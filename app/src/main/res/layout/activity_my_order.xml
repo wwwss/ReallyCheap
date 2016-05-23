@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <tsingcloud.android.core.widgets.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:weightSum="5">
+
+        <TextView
+            android:id="@+id/all"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/all"
+            android:textColor="@drawable/main_text_bg"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/stayPay"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/stay_pay"
+            android:textColor="@drawable/main_text_bg"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/stayReceiving"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/stay_receiving"
+            android:textColor="@drawable/main_text_bg"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/completed"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/completed"
+            android:textColor="@drawable/main_text_bg"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/refund"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/refund"
+            android:textColor="@drawable/main_text_bg"
+            android:textSize="@dimen/text_size_small" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/line_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="39dp"
+                android:layout_height="50dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@drawable/order_empty_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/collect_baby_empty_hint"
+                android:textColor="@color/text_color_dark"
+                android:textSize="@dimen/text_size_normal_min" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/line_bg"
+            android:dividerHeight="5dp"
+            android:listSelector="@android:color/transparent"
+            android:scrollbars="none" />
+    </RelativeLayout>
+</LinearLayout>

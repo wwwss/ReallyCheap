@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <tsingcloud.android.reallycheap.widgets.adapter.MyViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/dotLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_general" >
+
+        <View
+            android:id="@+id/v_dot1"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:background="@drawable/banner_solid_point_icon" />
+
+        <View
+            android:id="@+id/v_dot2"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginLeft="@dimen/margin_general"
+            android:background="@drawable/banner_solid_point_icon" />
+    </LinearLayout>
+
+</RelativeLayout>

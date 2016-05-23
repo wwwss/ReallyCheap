@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <tsingcloud.android.core.widgets.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="45dp">
+
+            <include layout="@layout/widget_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/phone_icon" />
+
+                <EditText
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="@string/login_phone_hint"
+                    android:inputType="phone"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color_grey"
+                    android:textColorHint="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:id="@+id/getYzm"
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/get_yzm_bg"
+                    android:gravity="center"
+                    android:text="@string/get_yzm"
+                    android:textColor="@drawable/get_yzm_text_bg"
+                    android:textSize="@dimen/text_size_normal" />
+            </LinearLayout>
+
+            <include layout="@layout/widget_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="65dp"
+                    android:layout_marginLeft="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/yzm_icon" />
+
+                <EditText
+                    android:id="@+id/yzm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="@string/login_yzm_hint"
+                    android:inputType="phone"
+                    android:maxLength="4"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color_grey"
+                    android:textColorHint="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </LinearLayout>
+
+            <include layout="@layout/widget_line" />
+
+            <TextView
+                android:id="@+id/login"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/get_yzm_bg"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="@drawable/get_yzm_text_bg"
+                android:textSize="@dimen/text_size_normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_general"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_hint1"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_min" />
+
+                <TextView
+                    android:id="@+id/protocol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_hint2"
+                    android:textColor="@color/text_color_red"
+                    android:textSize="@dimen/text_size_min" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/orange">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/tab_my_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_slightlybigger" />
+
+        <ImageView
+            android:id="@+id/message"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            android:src="@drawable/message_selector_bg" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdge="none"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/editUserInfo"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/orange">
+
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="20dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/default_avatar_icon" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@+id/avatar"
+                    android:gravity="center_vertical"
+                    android:text="@string/name_edit_hint"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/phoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/name"
+                    android:layout_toRightOf="@+id/avatar"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/click_edit"
+                    android:layout_width="81dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/edit_bg_icon"
+                    android:gravity="center"
+                    android:text="@string/click_edit"
+                    android:textColor="@color/orange" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/my_order"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/all_order_enter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/all_order_enter_icon"
+                    android:gravity="center_vertical"
+                    android:text="@string/see_all"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:id="@+id/all_order_enter_icon"
+                    android:layout_width="44dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/all_order_enter_icon" />
+            </RelativeLayout>
+
+            <include layout="@layout/widget_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:weightSum="4">
+
+                <RelativeLayout
+                    android:id="@+id/stayPay"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/stay_pay_icon"
+                        android:layout_width="76dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/stay_pay_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_below="@+id/stay_pay_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/stay_pay"
+                        android:textColor="@color/text_color_grey"
+                        android:textSize="@dimen/text_size_small" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/stayReceiving"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/stay_receiving_icon"
+                        android:layout_width="76dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/stay_receiving_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_below="@+id/stay_receiving_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/stay_receiving"
+                        android:textColor="@color/text_color_grey"
+                        android:textSize="@dimen/text_size_small" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/completed"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/completed_icon"
+                        android:layout_width="76dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/completed_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_below="@+id/completed_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/completed"
+                        android:textColor="@color/text_color_grey"
+                        android:textSize="@dimen/text_size_small" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/refund"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/refund_icon"
+                        android:layout_width="76dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/refund_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_below="@+id/refund_icon"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/refund"
+                        android:textColor="@color/text_color_grey"
+                        android:textSize="@dimen/text_size_small" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/widget_line" />
+
+            <RelativeLayout
+                android:id="@+id/collection"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/collectionProduct"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/collection_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/collectionProduct"
+                    android:gravity="center_vertical"
+                    android:text="@string/collection_product"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/all_order_enter_icon" />
+
+            </RelativeLayout>
+
+            <include layout="@layout/widget_line" />
+
+            <RelativeLayout
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/address_icon"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/address_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/address_icon"
+                    android:gravity="center_vertical"
+                    android:text="@string/address_management"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/all_order_enter_icon" />
+
+            </RelativeLayout>
+
+            <include layout="@layout/widget_line" />
+
+
+            <RelativeLayout
+                android:id="@+id/kefu"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/kefu_icon"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/kefu_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/kefu_icon"
+                    android:gravity="center_vertical"
+                    android:text="@string/kefu"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/all_order_enter_icon" />
+            </RelativeLayout>
+
+            <include layout="@layout/widget_line" />
+
+            <RelativeLayout
+                android:id="@+id/about_us"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/about_us_icon"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/about_us_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/about_us_icon"
+                    android:gravity="center_vertical"
+                    android:text="@string/about_us"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/text_size_small" />
+
+                <ImageView
+                    android:layout_width="44dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/all_order_enter_icon" />
+
+            </RelativeLayout>
+
+            <include layout="@layout/widget_line" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
