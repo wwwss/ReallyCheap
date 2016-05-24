@@ -2,7 +2,7 @@ package tsingcloud.android.core.widgets.activity;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +24,7 @@ import tsingcloud.android.core.widgets.TitleBar;
  * Created by Stay on 2/2/16.
  * Powered by www.stay4it.com
  */
-public abstract class BaseActivity extends FragmentActivity implements TitleBarListener, BaseView {
+public abstract class BaseActivity extends AppCompatActivity implements TitleBarListener, BaseView {
     // log标签
     protected final String TAG = getClass().getName();
     //protected Toolbar toolbar;

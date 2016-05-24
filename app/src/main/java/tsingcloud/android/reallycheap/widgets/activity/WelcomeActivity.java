@@ -15,6 +15,7 @@ import com.igexin.sdk.PushManager;
 import tsingcloud.android.core.cache.LocalCache;
 import tsingcloud.android.core.interfaces.UpdateApplicationVariableListener;
 import tsingcloud.android.core.utils.LogUtils;
+import tsingcloud.android.core.widgets.activity.BaseActivity;
 import tsingcloud.android.model.bean.ApplicationBean;
 import tsingcloud.android.reallycheap.R;
 import tsingcloud.android.reallycheap.presenter.ApplicationPresenter;
@@ -23,19 +24,18 @@ import tsingcloud.android.reallycheap.presenter.ApplicationPresenter;
  * Created by admin on 2016/5/10
  * 欢迎页面
  */
-public class WelcomeActivity extends tsingcloud.android.core.widgets.activity.BaseActivity implements Animation.AnimationListener, UpdateApplicationVariableListener {
+public class WelcomeActivity extends BaseActivity implements Animation.AnimationListener, UpdateApplicationVariableListener {
 
     private ApplicationPresenter applicationPresenter;
 
     @Override
     protected void setUpContentView() {
         applicationPresenter = new ApplicationPresenter(this);
-        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-            finish();
-            return;
-        }
-        requestWindowFeature(Window.FEATURE_NO_TITLE); // 无title
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); // 全屏
+        //设置无标题
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //设置全屏
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 初始化布局文件
         View rootView = LayoutInflater.from(this).inflate(R.layout.activity_welcome, null);
         setContentView(rootView);

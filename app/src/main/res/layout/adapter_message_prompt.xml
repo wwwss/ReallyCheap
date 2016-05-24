@@ -47,7 +47,6 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/content"
         android:layout_marginLeft="10dp"
-
         android:gravity="center_vertical"
         android:minHeight="44dp"
         android:textColor="@color/text_color_grey"

@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <color name="app_primary_color">#80c3db</color>
-    <color name="app_primary_dark_color">#45b9de</color>
-    <color name="app_transparent">#00000000</color>
     <color name="black">#000000</color>
-    <string name="blue">#037BFF</string>
-    <color name="tab_gray">#ff999999</color>
-    <color name="tab_green">#ff45c01a</color>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFF</color>
     <color name="blue">#037BFF</color>
     <color name="line_bg">#efefef</color>
-    <color name="shopping_cart_foot_view_bg">#d3d3d3</color>
     <color name="orange">#ff5a1e</color>
     <color name="grey">#666666</color>
     <color name="text_color_grey">#666666</color>

@@ -127,7 +127,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:background="@color/translucent">
+        android:background="@color/grey">
 
         <TextView
             android:layout_width="wrap_content"

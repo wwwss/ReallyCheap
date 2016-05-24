@@ -22,20 +22,17 @@ import tsingcloud.android.model.bean.ShopBean;
  */
 public class HomepageModelImpl implements HomepageModel {
     @Override
-    public void getShopsData(final OnNSURLRequestListener<List<ShopBean>> listener,String tag) {
-        System.out.println("--------------------------------------0");
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(Api.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
-        ApiImpl api=retrofit.create(ApiImpl.class);
-        Call<ApiResponseBean<List<ShopBean>>> call=api.getShops();
+    public void getShopsData(final OnNSURLRequestListener<List<ShopBean>> listener, String tag) {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.SERVER).addConverterFactory(GsonConverterFactory.create()).build();
+        ApiImpl api = retrofit.create(ApiImpl.class);
+        Call<ApiResponseBean<List<ShopBean>>> call = api.getShops();
         call.enqueue(new Callback<ApiResponseBean<List<ShopBean>>>() {
             @Override
             public void onResponse(Call<ApiResponseBean<List<ShopBean>>> call, Response<ApiResponseBean<List<ShopBean>>> response) {
-                System.out.println("--------------------------------------"+response.body());
                 if (response.body().isSuccess())
                     listener.onSuccess(response.body().getObjList());
                 else
                     listener.onFailure(response.body().getErrmsg());
-                System.out.println("--------------------------------------1");
             }
 
             @Override
@@ -61,7 +58,7 @@ public class HomepageModelImpl implements HomepageModel {
     }
 
     @Override
-    public void getHomepageData(String shopId, final OnNSURLRequestListener<HomepageDataBean> listener,String tag) {
+    public void getHomepageData(String shopId, final OnNSURLRequestListener<HomepageDataBean> listener, String tag) {
         OkHttpUtils.get(Api.GET_HOMEPAGE_DATA + "shop_id=" + shopId, new OkHttpUtils.ResultCallback<ApiResponseBean<HomepageDataBean>>() {
 
 
@@ -77,12 +74,12 @@ public class HomepageModelImpl implements HomepageModel {
             public void onFailure(Exception e) {
                 listener.onFailure("获取首页数据失败");
             }
-        },tag);
+        }, tag);
 
     }
 
     @Override
-    public void addShoppingCart(Map<String, String> map, final OnNSURLRequestListener<String> listener,String tag) {
+    public void addShoppingCart(Map<String, String> map, final OnNSURLRequestListener<String> listener, String tag) {
         OkHttpUtils.post(Api.ADD_SHOPPING_CART, new OkHttpUtils.ResultCallback<ApiResponseBean<String>>() {
             @Override
             public void onSuccess(ApiResponseBean<String> response) {
@@ -96,7 +93,7 @@ public class HomepageModelImpl implements HomepageModel {
             public void onFailure(Exception e) {
                 listener.onFailure("添加购物车失败");
             }
-        }, map,tag);
+        }, map, tag);
     }
 
 

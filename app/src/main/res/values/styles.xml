@@ -1,10 +1,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="Theme.MaterialDesign" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:textSize">16sp</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/white</item>
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- customize the color palette -->
+        <item name="colorPrimaryDark">@color/app_primary_color</item>
     </style>
     <!-- 自定义仿IOS的AlertDialog的样式 -->
     <style name="AlertDialogStyle" parent="@android:style/Theme.Dialog">

@@ -12,7 +12,6 @@
         android:layout_marginTop="@dimen/margin_general"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="@string/app_name"
         android:textColor="@color/text_color_grey"
         android:textSize="@dimen/text_size_small" />
 
@@ -24,7 +23,6 @@
         android:layout_below="@+id/name"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="@string/app_name"
         android:textColor="@color/text_color_grey"
         android:textSize="@dimen/text_size_small" />
 
@@ -37,7 +35,6 @@
         android:layout_marginBottom="@dimen/margin_general"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:text="@string/app_name"
         android:textColor="@color/text_color_grey"
         android:textSize="@dimen/text_size_small" />
 
