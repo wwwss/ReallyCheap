@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,18 +28,17 @@ import tsingcloud.android.core.widgets.TitleBar;
 public abstract class BaseActivity extends AppCompatActivity implements TitleBarListener, BaseView {
     // log标签
     protected final String TAG = getClass().getName();
-    //protected Toolbar toolbar;
     protected TitleBar titleBar;
     protected TextView toolbar_title;
+    protected Dialog loadingHintDialog;
+    protected Dialog loadingDialog;
+    protected PopupWindow popupWindow;
+    protected BasePresenter basePresenter;
     public static final int MODE_BACK = 0;
     public static final int MODE_CANCEL = 4;
     public static final int MODE_DRAWER = 1;
     public static final int MODE_NONE = 2;
     public static final int MODE_HOME = 3;
-    protected Dialog loadingHintDialog;
-    protected Dialog loadingDialog;
-    protected BasePresenter basePresenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
             titleBar.setTitle(title);
         }
     }
+
 
     @Override
     public void clickLeft() {
@@ -174,6 +175,7 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
         super.onResume();
         MobclickAgent.onResume(this);
     }
+
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
@@ -187,4 +189,6 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
         //basePresenter.cancelRequest(TAG);
         super.onDestroy();
     }
+
+
 }

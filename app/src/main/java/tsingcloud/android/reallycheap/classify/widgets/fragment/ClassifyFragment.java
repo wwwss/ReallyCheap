@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -20,6 +21,7 @@ import tsingcloud.android.reallycheap.classify.view.ClassifyView;
 import tsingcloud.android.reallycheap.classify.widgets.adapter.ClassifyAdapter;
 import tsingcloud.android.reallycheap.classify.widgets.adapter.SmallClassifyAdapter;
 import tsingcloud.android.reallycheap.homepage.widgets.activity.SearchActivity;
+import tsingcloud.android.reallycheap.utils.NetUtils;
 
 /**
  * Created by admin on 2016/3/16.
@@ -36,6 +38,7 @@ public class ClassifyFragment extends BaseFragment implements AdapterView.OnItem
     private ClassifyPresenter classifyPresenter;
     private int newPosition;
     private String categoryId;//分类ID
+    private View reloadView;
 
 
     @Override
@@ -69,9 +72,31 @@ public class ClassifyFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     protected void setUpData() {
+        if (!NetUtils.isConnected(context)){
+            showReloadView();
+            return;
+        }
         classifyPresenter.getClassifyData();
     }
 
+    public void showReloadView() {
+        if (reloadView == null) {
+            ViewStub noDataViewStub = (ViewStub) view.findViewById(R.id.reload);
+            reloadView = noDataViewStub.inflate();
+            reloadView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    classifyPresenter.getClassifyData();
+                }
+            });
+        } else
+            reloadView.setVisibility(View.VISIBLE);
+    }
+
+    public  void hideReloadView(){
+        if (reloadView!=null)
+            reloadView.setVisibility(View.GONE);
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
@@ -98,7 +123,9 @@ public class ClassifyFragment extends BaseFragment implements AdapterView.OnItem
             classifyAdapter.setSelectItem(newPosition);
             classifyListView.setSelection(newPosition);
             classifyAdapter.notifyDataSetInvalidated();
-        }
+            hideReloadView();
+        }else
+            showReloadView();
 
     }
 
@@ -127,4 +154,8 @@ public class ClassifyFragment extends BaseFragment implements AdapterView.OnItem
     }
 
 
+    public void refresh() {
+        if (classifyPresenter != null)
+            classifyPresenter.getClassifyData();
+    }
 }

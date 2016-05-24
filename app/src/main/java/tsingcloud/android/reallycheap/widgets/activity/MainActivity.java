@@ -3,6 +3,8 @@ package tsingcloud.android.reallycheap.widgets.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.umeng.update.UmengUpdateAgent;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tsingcloud.android.core.interfaces.OnNavigationBarClickListener;
-import tsingcloud.android.core.interfaces.OnTabSwitchToListener;
+import tsingcloud.android.core.interfaces.OnTabListener;
 import tsingcloud.android.core.widgets.activity.BaseActivity;
 import tsingcloud.android.model.bean.ClassifyBean;
 import tsingcloud.android.model.bean.TabBean;
@@ -21,7 +23,7 @@ import tsingcloud.android.reallycheap.my.widgets.fragment.MyFragment;
 import tsingcloud.android.reallycheap.shoppingcart.widgets.fragment.ShoppingCartFragment;
 import tsingcloud.android.reallycheap.widgets.view.NavigationBar;
 
-public class MainActivity extends BaseActivity implements OnNavigationBarClickListener, OnTabSwitchToListener {
+public class MainActivity extends BaseActivity implements OnNavigationBarClickListener, OnTabListener {
 
     private NavigationBar navigationBar;
     private HomepageFragment homePageFragment;
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
     // 当前fragment的index
     private int currentTabIndex;
     private Fragment[] fragments;
+    private long exitTime;
 
     @Override
     protected void setUpContentView() {
@@ -41,7 +44,7 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
     protected void setUpView() {
         navigationBar = (NavigationBar) findViewById(R.id.navigationBar);
         homePageFragment = new HomepageFragment();
-        homePageFragment.setOnTabSwitchToListener(this);
+        homePageFragment.setOnTabListener(this);
         classifyFragment = new ClassifyFragment();
         shoppingCartFragment = new ShoppingCartFragment();
         shoppingCartFragment.setOnTabSwitchToListener(this);
@@ -52,7 +55,26 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
         fragmentTransaction.add(R.id.content, homePageFragment).show(homePageFragment).commit();
         // 检查提示更新
         UmengUpdateAgent.update(this);
+        //registerBroadcast();
     }
+
+
+//    private void registerBroadcast() {
+//        IntentFilter intentFilter=new IntentFilter(NetworkListener.NETWORK_CHANGE);
+//        intentFilter.addCategory(getPackageName());
+//        registerReceiver(receiver,intentFilter);
+//    }
+//
+//    private  BroadcastReceiver receiver=new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (NetworkListener.NETWORK_CHANGE.equals(intent.getAction())){
+//
+//            }
+//
+//        }
+//    };
+
 
     @Override
     protected void setUpData() {
@@ -101,5 +123,29 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
                 classifyFragment.setCategoryId(classifyBean.getId());
                 break;
         }
+    }
+
+    @Override
+    public void onTabRefresh(int index, Object object) {
+        switch (index) {
+            case 1:
+                classifyFragment.refresh();
+                break;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出醉食汇", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

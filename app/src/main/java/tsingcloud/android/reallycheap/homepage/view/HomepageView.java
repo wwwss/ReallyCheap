@@ -2,23 +2,16 @@ package tsingcloud.android.reallycheap.homepage.view;
 
 import java.util.List;
 
-import tsingcloud.android.core.view.BaseView;
 import tsingcloud.android.model.bean.BannerBean;
 import tsingcloud.android.model.bean.ClassifyBean;
 import tsingcloud.android.model.bean.HotClassifyBean;
-import tsingcloud.android.model.bean.ShopBean;
 
 /**
  * Created by admin on 2016/3/24.
  * 首页接口
  */
-public interface HomepageView extends BaseView {
-    /**
-     * 设置店铺数据
-     *
-     * @param shopNameBeans 店铺实体对象列表
-     */
-    void setShopsData(List<ShopBean> shopNameBeans);
+public interface HomepageView extends SelectStoreView {
+
 
 //    /**
 //     * 设置首页数据
@@ -53,12 +46,5 @@ public interface HomepageView extends BaseView {
 //     */
 //    void toSearchActivity();
 
-    /**
-     * 设置定位
-     *
-     * @param lat 经度
-     * @param lng 纬度
-     */
-    void setLocation(double lat, double lng);
 
 }

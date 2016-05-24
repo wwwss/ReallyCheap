@@ -251,6 +251,7 @@ public class SlideShowView extends FrameLayout implements MyViewPager.OnSingleTo
 
     public void setData(List<BannerBean> imageList) {
         if (imageList != null && imageList.size() > 0) {
+            this.imageList.clear();
             this.imageList.addAll(imageList);
             initUI(context);
         }

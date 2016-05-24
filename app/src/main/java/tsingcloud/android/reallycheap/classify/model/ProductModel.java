@@ -12,5 +12,4 @@ import tsingcloud.android.model.bean.ProductBean;
  */
 public interface ProductModel {
     void getProductList(String url,Map<String, String> map,OnNSURLRequestListener<List<ProductBean>> listener,OnSetListTotalPagesListener totalPagesListener,String tag);
-    void addShoppingCart(Map<String, String> map,OnNSURLRequestListener<String> listener,String tag);
 }

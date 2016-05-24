@@ -105,6 +105,12 @@ public class MyOrderAdapter extends BaseAdapter<OrderBean> {
                 itemCache.tvOperation.setVisibility(View.GONE);
                 itemCache.tvExpirationTime.setVisibility(View.GONE);
                 break;
+            case "7":
+                itemCache.tvOrderStatus.setText("到店自提");
+                itemCache.tvOperation.setText("确认收货");
+                itemCache.tvOperation.setVisibility(View.VISIBLE);
+                itemCache.tvExpirationTime.setVisibility(View.GONE);
+                break;
         }
         itemCache.tvProductNum.setText("共计" + orderBean.getPro_count() + "件产品");
         itemCache.tvTotalPrice.setText("合计：¥" + orderBean.getTotal_price());

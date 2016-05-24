@@ -1,7 +1,5 @@
 package tsingcloud.android.reallycheap.classify.presenter;
 
-import android.text.TextUtils;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,16 +10,18 @@ import tsingcloud.android.model.bean.ProductBean;
 import tsingcloud.android.reallycheap.classify.model.ProductModel;
 import tsingcloud.android.reallycheap.classify.model.ProductModelImpl;
 import tsingcloud.android.reallycheap.classify.view.ProductView;
+import tsingcloud.android.reallycheap.presenter.ProductBasePresenter;
 
 /**
  * Created by admin on 2016/3/24.
  */
-public class ProductPresenter {
+public class ProductPresenter extends ProductBasePresenter {
 
     private ProductView productView;
     private ProductModel productModel;
 
     public ProductPresenter(ProductView productView) {
+        super(productView);
         this.productView = productView;
         productModel = new ProductModelImpl();
     }
@@ -51,29 +51,5 @@ public class ProductPresenter {
         }, productView.getTAG());
     }
 
-    /**
-     * 添加产品到购物车
-     *
-     * @param productId 产品ID
-     */
-    public void addShoppingCart(String productId) {
-        if (TextUtils.isEmpty(productView.getToken()) || TextUtils.isEmpty(productView.getShopId()))
-            return;
-        Map<String, String> map = new HashMap<>();
-        map.put("token", productView.getToken());
-        map.put("shop_id", productView.getShopId());
-        map.put("product_id", productId);
-        map.put("product_num", "1");
-        productModel.addShoppingCart(map, new OnNSURLRequestListener<String>() {
-            @Override
-            public void onSuccess(String response) {
-                productView.showToast(response);
-            }
 
-            @Override
-            public void onFailure(String msg) {
-                productView.showToast(msg);
-            }
-        }, productView.getTAG());
-    }
 }

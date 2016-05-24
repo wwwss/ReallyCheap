@@ -1,5 +1,6 @@
 package tsingcloud.android.reallycheap.homepage.widgets.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tsingcloud.android.core.cache.LocalCache;
-import tsingcloud.android.core.interfaces.OnTabSwitchToListener;
+import tsingcloud.android.core.interfaces.OnTabListener;
 import tsingcloud.android.core.utils.LogUtils;
 import tsingcloud.android.core.widgets.fragment.BaseFragment;
 import tsingcloud.android.model.bean.BannerBean;
@@ -34,9 +36,11 @@ import tsingcloud.android.reallycheap.R;
 import tsingcloud.android.reallycheap.homepage.presenter.HomepagePresenter;
 import tsingcloud.android.reallycheap.homepage.view.HomepageView;
 import tsingcloud.android.reallycheap.homepage.widgets.activity.SearchActivity;
+import tsingcloud.android.reallycheap.homepage.widgets.activity.SelectStoreActivity;
 import tsingcloud.android.reallycheap.homepage.widgets.adapter.HotClassifyAdapter;
 import tsingcloud.android.reallycheap.homepage.widgets.adapter.HotProductListViewAdapter;
 import tsingcloud.android.reallycheap.utils.ListViewUitls;
+import tsingcloud.android.reallycheap.utils.NetUtils;
 import tsingcloud.android.reallycheap.widgets.view.SAGridView;
 import tsingcloud.android.reallycheap.widgets.view.SlideShowView;
 
@@ -46,6 +50,7 @@ import tsingcloud.android.reallycheap.widgets.view.SlideShowView;
  */
 public class HomepageFragment extends BaseFragment implements HomepageView, View.OnClickListener, AdapterView.OnItemClickListener {
 
+    private static final int SELECT_STORE = 0;
     private HomepagePresenter homepagePresenter;
     private TextView tvShopName;
     private ImageView ivUpward;
@@ -57,12 +62,13 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
     private HotClassifyAdapter adapter;
     private List<HotClassifyBean> hotClassifyBeanList;
     private HotProductListViewAdapter listViewAdapter;
-    private OnTabSwitchToListener onTabSwitchToListener;
+    private OnTabListener onTabListener;
     private LatLng startLatlng = null;
     private int LOCATION = 0;
+    private View reloadView;
 
-    public void setOnTabSwitchToListener(OnTabSwitchToListener onTabSwitchToListener) {
-        this.onTabSwitchToListener = onTabSwitchToListener;
+    public void setOnTabListener(OnTabListener onTabListener) {
+        this.onTabListener = onTabListener;
     }
 
     @Override
@@ -74,6 +80,7 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
     protected void setUpView() {
         homepagePresenter = new HomepagePresenter(this);
         tvShopName = (TextView) view.findViewById(R.id.shopName);
+        tvShopName.setOnClickListener(this);
         view.findViewById(R.id.search).setOnClickListener(this);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         slideShowView = (SlideShowView) view.findViewById(R.id.slideshowView);
@@ -92,6 +99,10 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
 
     @Override
     protected void setUpData() {
+        if (!NetUtils.isConnected(context)) {
+            showReloadView();
+            return;
+        }
         //版本判断
         if (Build.VERSION.SDK_INT >= 23) {
             //减少是否拥有权限
@@ -152,46 +163,88 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
 
     @Override
     public void setHotClassifyData(List<ClassifyBean> classifyBeans) {
-        classifyBeanList.addAll(classifyBeans);
-        adapter.notifyDataSetChanged();
+        if (classifyBeans != null && classifyBeans.size() > 0) {
+            classifyBeanList.clear();
+            classifyBeanList.addAll(classifyBeans);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void setHotProductData(List<HotClassifyBean> hotClassifyBeans) {
-        if (null != hotClassifyBeans && hotClassifyBeans.size() > 0) {
+        if (null != hotClassifyBeans) {
+            hotClassifyBeanList.clear();
             hotClassifyBeanList.addAll(hotClassifyBeans);
             listViewAdapter.notifyDataSetChanged();
-            ImageView imageView = new ImageView(context);
-            imageView.setImageResource(R.drawable.bottom_hint_icon);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            listView.addFooterView(imageView);
-            ListViewUitls.setListViewHeightBasedOnChildren(listView);
-            ivUpward.setVisibility(View.VISIBLE);
-        } else {
-            ivUpward.setVisibility(View.INVISIBLE);
+            if (hotClassifyBeans.size() > 0) {
+                if (listView.getFooterViewsCount() == 0) {
+                    ImageView imageView = new ImageView(context);
+                    imageView.setImageResource(R.drawable.bottom_hint_icon);
+                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                    listView.addFooterView(imageView);
+                    ivUpward.setVisibility(View.VISIBLE);
+                    hideReloadView();
+                    ListViewUitls.setListViewHeightBasedOnChildren(listView);
+                }
+            } else {
+                showReloadView();
+            }
         }
+    }
 
+    public void showReloadView() {
+        listView.setVisibility(View.GONE);
+        ivUpward.setVisibility(View.GONE);
+        if (reloadView == null) {
+            ViewStub noDataViewStub = (ViewStub) view.findViewById(R.id.reload);
+            reloadView = noDataViewStub.inflate();
+            reloadView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    homepagePresenter.getLocation(context);
+                }
+            });
+        } else
+            reloadView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideReloadView() {
+        ivUpward.setVisibility(View.VISIBLE);
+        listView.setVisibility(View.VISIBLE);
+        if (reloadView != null)
+            reloadView.setVisibility(View.GONE);
     }
 
     @Override
     public void setLocation(double lat, double lng) {
         dismissDialog();
+        if (lat == 0 && lng == 0) {
+            tvShopName.setText("定位失败");
+            LocalCache.get(context).remove("shopId");
+            startActivityForResult(new Intent(context, SelectStoreActivity.class), SELECT_STORE);
+            return;
+        }
         startLatlng = new LatLng(lat, lng);
         homepagePresenter.getShopsData();
-        LogUtils.d("定位成功", "经度----" + lat + "纬度----" + lng);
+        LogUtils.d("定位结束", "经度----" + lat + "纬度----" + lng);
     }
 
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.search:
-                Intent intent = new Intent(context, SearchActivity.class);
+                intent = new Intent(context, SearchActivity.class);
                 startActivity(intent);
                 break;
             case R.id.upward:
                 LogUtils.d(TAG, "回到顶部");
                 scrollView.scrollTo(0, 20);
+                break;
+            case R.id.shopName:
+                intent = new Intent(context, SelectStoreActivity.class);
+                startActivityForResult(intent, SELECT_STORE);
                 break;
         }
 
@@ -200,12 +253,29 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ClassifyBean classifyBean = (ClassifyBean) parent.getItemAtPosition(position);
-        onTabSwitchToListener.onTabSwitch(1, classifyBean);
+        onTabListener.onTabSwitch(1, classifyBean);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         homepagePresenter.destroyLocation();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) return;
+        switch (requestCode) {
+            case SELECT_STORE:
+                ShopBean shopBean = (ShopBean) data.getSerializableExtra("shopBean");
+                if (shopBean == null) return;
+                if (shopBean.getId().equals(getShopId())) return;
+                LocalCache.get(context).put("shopId", shopBean.getId());
+                tvShopName.setText(shopBean.getName());
+                homepagePresenter.getHomepageData(shopBean.getId());
+                onTabListener.onTabRefresh(1, null);
+                break;
+        }
     }
 }

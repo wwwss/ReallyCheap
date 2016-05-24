@@ -40,7 +40,7 @@ public class ShoppingCartModelImpl implements ShoppingCartModel {
             @Override
             public void onFailure(Exception e) {
                 LogUtils.e(TAG, "获取默认地址失败", e);
-                listener.onFailure("获取默认地址失败");
+                //listener.onFailure("获取默认地址失败");
             }
         }, tag);
     }
@@ -113,7 +113,7 @@ public class ShoppingCartModelImpl implements ShoppingCartModel {
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("获取购物车列表失败");
+                //listener.onFailure("获取购物车列表失败");
             }
         }, tag);
     }
@@ -131,7 +131,7 @@ public class ShoppingCartModelImpl implements ShoppingCartModel {
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("删除购物车数据失败");
+                //listener.onFailure("删除购物车数据失败");
             }
         }, map, tag);
     }
@@ -149,7 +149,7 @@ public class ShoppingCartModelImpl implements ShoppingCartModel {
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("修改购物车产品数量失败");
+                //listener.onFailure("修改购物车产品数量失败");
             }
         }, map, tag);
     }

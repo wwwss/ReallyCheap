@@ -4,6 +4,7 @@ import java.util.Map;
 
 import tsingcloud.android.api.Api;
 import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
+import tsingcloud.android.core.utils.LogUtils;
 import tsingcloud.android.model.bean.ApiResponseBean;
 import tsingcloud.android.model.bean.UserBean;
 import tsingcloud.android.core.okhttp.OkHttpUtils;
@@ -13,7 +14,7 @@ import tsingcloud.android.core.okhttp.OkHttpUtils;
  */
 public class MyModelImpl implements MyModel {
     @Override
-    public void getUserIfo(String token,Map<String,String> map, final OnNSURLRequestListener<UserBean> listener,String tag) {
+    public void getUserIfo(String token, Map<String, String> map, final OnNSURLRequestListener<UserBean> listener, String tag) {
         OkHttpUtils.get(Api.GET_USER_INFO + token, new OkHttpUtils.ResultCallback<ApiResponseBean<UserBean>>() {
             @Override
             public void onSuccess(ApiResponseBean<UserBean> response) {
@@ -25,8 +26,9 @@ public class MyModelImpl implements MyModel {
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("获取用户信息失败");
+                //listener.onFailure("获取用户信息失败");
+                LogUtils.e("getUserIfo", "获取用户信息失败", e);
             }
-        },map,tag);
+        }, map, tag);
     }
 }

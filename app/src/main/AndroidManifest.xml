@@ -57,8 +57,9 @@
             android:name=".my.widgets.activity.LoginActivity"
             android:label="@string/login_yz"
             android:screenOrientation="portrait" />
-        <activity android:name=".widgets.activity.GuidePageActivity"
-            android:label="@string/guide_page"/>
+        <activity
+            android:name=".widgets.activity.GuidePageActivity"
+            android:label="@string/guide_page" />
         <activity
             android:name=".homepage.widgets.activity.SearchActivity"
             android:label="@string/search"
@@ -122,6 +123,10 @@
         <activity
             android:name=".my.widgets.activity.TextSearchActivity"
             android:label="@string/search"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homepage.widgets.activity.SelectStoreActivity"
+            android:label="@string/select_store"
             android:screenOrientation="portrait" />
 
         <activity
@@ -254,6 +259,15 @@
             </intent-filter>
         </receiver>
         <!-- 个推SDK配置结束 -->
+        <!--
+        <receiver
+            android:name=".utils.NetworkListener"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        -->
     </application>
 
 

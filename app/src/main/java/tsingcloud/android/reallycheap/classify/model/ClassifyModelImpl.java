@@ -34,7 +34,7 @@ public class ClassifyModelImpl implements ClassifyModel {
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("获取分类列表失败");
+                //listener.onFailure("获取分类列表失败");
             }
         }, tag);
 
@@ -54,7 +54,7 @@ public class ClassifyModelImpl implements ClassifyModel {
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("获取具体分类列表失败");
+                //listener.onFailure("获取具体分类列表失败");
             }
         }, map, tag);
     }

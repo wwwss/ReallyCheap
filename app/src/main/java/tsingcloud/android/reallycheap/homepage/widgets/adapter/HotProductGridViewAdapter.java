@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import tsingcloud.android.core.cache.LocalCache;
 import tsingcloud.android.model.bean.ProductBean;
@@ -65,10 +63,7 @@ public class HotProductGridViewAdapter extends BaseAdapter<ProductBean> {
                     context.startActivity(new Intent(context, LoginActivity.class));
                     return;
                 }
-                Map<String, String> map = new HashMap<>();
-                map.put("product_id", list.get(position).getId());
-                map.put("product_num", "1");
-                homePagePresenter.addShoppingCart(map);
+                homePagePresenter.addShoppingCart(list.get(position).getId());
             }
         });
         if (productBean.getStock_volume() > 0)

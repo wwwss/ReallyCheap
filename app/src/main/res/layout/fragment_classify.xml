@@ -47,7 +47,12 @@
             android:listSelector="#00000000"
             android:scrollbars="none" />
 
-
+        <ViewStub
+            android:id="@+id/reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout="@layout/view_reload" />
         <ListView
             android:id="@+id/smallClassifyListView"
             android:layout_width="0dp"

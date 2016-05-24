@@ -85,6 +85,9 @@
     <string name="add_shopping_cart">加入购物车</string>
     <string name="guide_page">引导页</string>
     <string name="collect_baby_empty_hint">亲，还没有内容哦！</string>
+    <string name="positioning_location">定位当前位置</string>
+    <string name="select_store">选择店面</string>
+    <string name="network_anomaly">亲，您的网络状况不太好哦！</string>
 
 
     <item name="tag_image_url" type="id"></item>

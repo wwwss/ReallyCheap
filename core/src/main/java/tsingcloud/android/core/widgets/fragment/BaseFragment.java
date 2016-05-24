@@ -122,4 +122,6 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         super.onDestroy();
 
     }
+
+
 }

@@ -24,4 +24,6 @@ public class BasePresenter {
     public void cancelRequest(String TAG) {
         OkHttpUtils.cancelRequest(TAG);
     }
+
+
 }

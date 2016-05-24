@@ -33,7 +33,7 @@ public class SearchModelImpl implements SearchModel {
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("获取热门搜索失败");
+                //listener.onFailure("获取热门搜索失败");
                 LogUtils.e(TAG, "获取热门搜索失败", e);
             }
         }, tag);

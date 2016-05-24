@@ -18,6 +18,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:textColor="@color/white"
+            android:text="@string/is_located"
             android:textSize="@dimen/text_size_slightlybigger" />
 
         <ImageView
@@ -77,14 +78,19 @@
                     android:layout_height="wrap_content"
                     android:background="@color/line_bg"
                     android:cacheColorHint="@android:color/transparent"
-                    android:fadingEdge="none"
                     android:divider="@null"
+                    android:fadingEdge="none"
                     android:listSelector="@android:color/transparent"
                     android:scrollbars="none" />
             </LinearLayout>
         </ScrollView>
 
-
+        <ViewStub
+            android:id="@+id/reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout="@layout/view_reload" />
 
         <ImageView
             android:id="@+id/upward"
@@ -95,8 +101,8 @@
             android:layout_marginBottom="104dp"
             android:layout_marginRight="@dimen/margin_large"
             android:scaleType="centerInside"
-            android:visibility="invisible"
-            android:src="@drawable/upward_icon" />
+            android:src="@drawable/upward_icon"
+            android:visibility="invisible" />
     </RelativeLayout>
 
 </LinearLayout>

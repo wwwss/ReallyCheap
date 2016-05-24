@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tsingcloud.android.core.cache.LocalCache;
-import tsingcloud.android.core.interfaces.OnTabSwitchToListener;
+import tsingcloud.android.core.interfaces.OnTabListener;
 import tsingcloud.android.core.widgets.fragment.BaseFragment;
 import tsingcloud.android.model.bean.AddressBean;
 import tsingcloud.android.model.bean.OrderBean;
@@ -53,9 +53,9 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
     private double productsPrice;//商品总价
     private double totalPrice;//订单总价
     private double freight;//运费
-    private OnTabSwitchToListener onTabSwitchToListener;
+    private OnTabListener onTabSwitchToListener;
 
-    public void setOnTabSwitchToListener(OnTabSwitchToListener onTabSwitchToListener) {
+    public void setOnTabSwitchToListener(OnTabListener onTabSwitchToListener) {
         this.onTabSwitchToListener = onTabSwitchToListener;
     }
 
@@ -129,7 +129,7 @@ public class ShoppingCartFragment extends BaseFragment implements ShoppingCartVi
 
     @Override
     public void setShoppingCartList(List<ShoppingCartBean> shoppingCartBeanList) {
-        if (null != shoppingCartBeanList&&shoppingCartBeanList.size()>0) {
+        if (null != shoppingCartBeanList && shoppingCartBeanList.size() > 0) {
             shoppingCartBeans.clear();
             ivDelete.setVisibility(View.VISIBLE);
             view.findViewById(R.id.shoppingCartEmptyHint).setVisibility(View.GONE);

@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Map;
 
 import tsingcloud.android.core.cache.LocalCache;
+import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.interfaces.OnSetListTotalPagesListener;
-import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.model.bean.ProductBean;
 import tsingcloud.android.reallycheap.homepage.model.SearchModel;
 import tsingcloud.android.reallycheap.homepage.model.SearchModelImpl;
 import tsingcloud.android.reallycheap.homepage.view.SearchResultsView;
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
+import tsingcloud.android.reallycheap.presenter.ProductBasePresenter;
 
 /**
  * Created by admin on 2016/3/24.
  * 搜索结果页面控制器
  */
-public class SearchResultsPresenter extends BasePresenter {
+public class SearchResultsPresenter extends ProductBasePresenter {
     private SearchResultsView searchResultsView;
     private SearchModel searchModel;
 
@@ -68,26 +68,26 @@ public class SearchResultsPresenter extends BasePresenter {
         }, searchResultsView.getTAG());
     }
 
-    public void addShoppingCart(String productId) {
-        if (TextUtils.isEmpty(searchResultsView.getToken()) || TextUtils.isEmpty(searchResultsView.getShopId()))
-            return;
-        Map<String, String> map = new HashMap<>();
-        map.put("token", searchResultsView.getToken());
-        map.put("shop_id", searchResultsView.getShopId());
-        map.put("product_id", productId);
-        map.put("product_num", "1");
-        searchModel.addShoppingCart(map, new OnNSURLRequestListener<String>() {
-            @Override
-            public void onSuccess(String response) {
-                searchResultsView.showToast(response);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                searchResultsView.showToast(msg);
-            }
-        }, searchResultsView.getTAG());
-    }
+//    public void addShoppingCart(String productId) {
+//        if (TextUtils.isEmpty(searchResultsView.getToken()) || TextUtils.isEmpty(searchResultsView.getShopId()))
+//            return;
+//        Map<String, String> map = new HashMap<>();
+//        map.put("token", searchResultsView.getToken());
+//        map.put("shop_id", searchResultsView.getShopId());
+//        map.put("product_id", productId);
+//        map.put("product_num", "1");
+//        searchModel.addShoppingCart(map, new OnNSURLRequestListener<String>() {
+//            @Override
+//            public void onSuccess(String response) {
+//                searchResultsView.showToast(response);
+//            }
+//
+//            @Override
+//            public void onFailure(String msg) {
+//                searchResultsView.showToast(msg);
+//            }
+//        }, searchResultsView.getTAG());
+//    }
 
     public void saveHistorySearch(Context context, String searchContent) {
         JSONArray jsonArray = LocalCache.get(context).getAsJSONArray("historySearch");

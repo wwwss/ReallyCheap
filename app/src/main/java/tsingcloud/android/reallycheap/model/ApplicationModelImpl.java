@@ -52,7 +52,7 @@ public class ApplicationModelImpl implements ApplicationModel {
             @Override
             public void onFailure(Exception e) {
                 LogUtils.e(TAG, "msg", e);
-                listener.onFailure("更新Token失败");
+                //listener.onFailure("更新Token失败");
             }
         }, params, tag);
     }

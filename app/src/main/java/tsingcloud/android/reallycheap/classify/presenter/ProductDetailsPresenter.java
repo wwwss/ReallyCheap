@@ -10,17 +10,19 @@ import tsingcloud.android.model.bean.ProductBean;
 import tsingcloud.android.reallycheap.classify.model.ProductDetailsModel;
 import tsingcloud.android.reallycheap.classify.model.ProductDetailsModelImpl;
 import tsingcloud.android.reallycheap.classify.view.ProductDetailsView;
+import tsingcloud.android.reallycheap.presenter.ProductBasePresenter;
 
 /**
  * Created by admin on 2016/5/6.
  * 产品详情页面控制器
  */
-public class ProductDetailsPresenter {
+public class ProductDetailsPresenter extends ProductBasePresenter{
 
     private ProductDetailsView productDetailsView;
     private ProductDetailsModel productDetailsModel;
 
     public ProductDetailsPresenter(ProductDetailsView productDetailsView) {
+        super(productDetailsView);
         this.productDetailsView = productDetailsView;
         productDetailsModel = new ProductDetailsModelImpl();
     }
@@ -87,31 +89,31 @@ public class ProductDetailsPresenter {
 
     }
 
-    /**
-     * 添加产品到购物车
-     *
-     * @param productId 产品ID
-     */
-    public void addShoppingCart(String productId) {
-        if (TextUtils.isEmpty(productDetailsView.getToken()) || TextUtils.isEmpty(productDetailsView.getShopId()))
-            return;
-        Map<String, String> map = new HashMap<>();
-        map.put("token", productDetailsView.getToken());
-        map.put("shop_id", productDetailsView.getShopId());
-        map.put("product_id", productId);
-        map.put("product_num", "1");
-        productDetailsModel.addShoppingCart(map, new OnNSURLRequestListener<String>() {
-            @Override
-            public void onSuccess(String response) {
-                productDetailsView.showToast(response);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                productDetailsView.showToast(msg);
-            }
-        }, productDetailsView.getTAG());
-    }
+//    /**
+//     * 添加产品到购物车
+//     *
+//     * @param productId 产品ID
+//     */
+//    public void addShoppingCart(String productId) {
+//        if (TextUtils.isEmpty(productDetailsView.getToken()) || TextUtils.isEmpty(productDetailsView.getShopId()))
+//            return;
+//        Map<String, String> map = new HashMap<>();
+//        map.put("token", productDetailsView.getToken());
+//        map.put("shop_id", productDetailsView.getShopId());
+//        map.put("product_id", productId);
+//        map.put("product_num", "1");
+//        productDetailsModel.addShoppingCart(map, new OnNSURLRequestListener<String>() {
+//            @Override
+//            public void onSuccess(String response) {
+//                productDetailsView.showToast(response);
+//            }
+//
+//            @Override
+//            public void onFailure(String msg) {
+//                productDetailsView.showToast(msg);
+//            }
+//        }, productDetailsView.getTAG());
+//    }
 
 
 }

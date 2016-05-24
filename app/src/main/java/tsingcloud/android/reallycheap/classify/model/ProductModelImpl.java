@@ -38,21 +38,5 @@ public class ProductModelImpl implements ProductModel {
 
     }
 
-    @Override
-    public void addShoppingCart(Map<String, String> map, final OnNSURLRequestListener<String> listener,String tag) {
-        OkHttpUtils.post(Api.ADD_SHOPPING_CART, new OkHttpUtils.ResultCallback<ApiResponseBean<String>>() {
-            @Override
-            public void onSuccess(ApiResponseBean<String> response) {
-                if (response.isSuccess())
-                    listener.onSuccess(response.getErrmsg());
-                else
-                    listener.onFailure(response.getErrmsg());
-            }
 
-            @Override
-            public void onFailure(Exception e) {
-                listener.onFailure("添加购物车失败");
-            }
-        }, map,tag);
-    }
 }
