@@ -7,23 +7,23 @@ import java.util.Map;
 
 import tsingcloud.android.api.Api;
 import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
+import tsingcloud.android.core.okhttp.OkHttpUtils;
 import tsingcloud.android.model.bean.ApiResponseBean;
 import tsingcloud.android.model.bean.ClassifyDataBean;
 import tsingcloud.android.model.bean.SmallClassifyBean;
-import tsingcloud.android.core.okhttp.OkHttpUtils;
+import tsingcloud.android.reallycheap.model.BaseModelImpl;
 
 /**
  * Created by admin on 2016/3/24.
  */
-public class ClassifyModelImpl implements ClassifyModel {
+public class ClassifyModelImpl extends BaseModelImpl implements ClassifyModel {
 
     @Override
-    public void getClassifyList(String shopId, String categoryId, final OnNSURLRequestListener<ClassifyDataBean> listener, String tag) {
+    public void getClassifyList(String shopId, String categoryId, OnNSURLRequestListener<ClassifyDataBean> listener, String tag) {
         String url = Api.GET_CLASSIFY + "shop_id=" + shopId;
         if (!TextUtils.isEmpty(categoryId))
             url += "&category_id=" + categoryId;
-        OkHttpUtils.get(url, new OkHttpUtils.ResultCallback<ApiResponseBean<ClassifyDataBean>>() {
-
+        OkHttpUtils.get(url, new AbstractResultCallback<ApiResponseBean<ClassifyDataBean>>(listener) {
             @Override
             public void onSuccess(ApiResponseBean<ClassifyDataBean> response) {
                 if (response.isSuccess())
@@ -31,18 +31,13 @@ public class ClassifyModelImpl implements ClassifyModel {
                 else
                     listener.onFailure(response.getErrmsg());
             }
-
-            @Override
-            public void onFailure(Exception e) {
-                //listener.onFailure("获取分类列表失败");
-            }
         }, tag);
 
     }
 
     @Override
-    public void getSmallClassifyList(Map<String, String> map, final OnNSURLRequestListener<List<SmallClassifyBean>> listener, String tag) {
-        OkHttpUtils.get(Api.GET_SMALL_CLASSIFY, new OkHttpUtils.ResultCallback<ApiResponseBean<List<SmallClassifyBean>>>() {
+    public void getSmallClassifyList(Map<String, String> map, OnNSURLRequestListener<List<SmallClassifyBean>> listener, String tag) {
+        OkHttpUtils.get(Api.GET_SMALL_CLASSIFY, new AbstractResultCallback<ApiResponseBean<List<SmallClassifyBean>>>(listener) {
 
             @Override
             public void onSuccess(ApiResponseBean<List<SmallClassifyBean>> response) {
@@ -50,11 +45,6 @@ public class ClassifyModelImpl implements ClassifyModel {
                     listener.onSuccess(response.getObjList());
                 else
                     listener.onFailure(response.getErrmsg());
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                //listener.onFailure("获取具体分类列表失败");
             }
         }, map, tag);
     }

@@ -9,14 +9,19 @@ import com.bumptech.glide.Glide;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
- * Description : 图片加载工具类
- * Author : lauren
- * Email  : lauren.liuling@gmail.com
- * Blog   : http://www.liuling123.com
- * Date   : 15/12/21
+ * 图片加载工具类
  */
 public class ImageLoaderUtils {
 
+    /**
+     * 显示图片
+     *
+     * @param context     上下文
+     * @param imageView   图片控件
+     * @param url         图片地址
+     * @param placeholder 加载中图片
+     * @param error       加载错误图片
+     */
     public static void display(Context context, ImageView imageView, String url, int placeholder, int error) {
         if (TextUtils.isEmpty(url))
             imageView.setImageResource(error);
@@ -27,13 +32,13 @@ public class ImageLoaderUtils {
     }
 
     /**
-     * 加载圆形图片
+     * 显示圆形图片
      *
-     * @param context
-     * @param imageView
-     * @param url
-     * @param placeholder
-     * @param error
+     * @param context     上下文
+     * @param imageView   图片控件
+     * @param url         图片地址
+     * @param placeholder 加载中图片
+     * @param error       加载错误图片
      */
     public static void displayRoundedImageView(Context context, ImageView imageView, String url, int placeholder, int error) {
         if (imageView != null && !TextUtils.isEmpty(url)) {

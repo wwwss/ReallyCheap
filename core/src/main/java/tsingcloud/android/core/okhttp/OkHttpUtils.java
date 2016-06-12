@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
-import com.google.gson.internal.$Gson$Types;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -12,25 +11,22 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.URLEncoder;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import tsingcloud.android.core.callback.ResultCallback;
 import tsingcloud.android.core.utils.JsonUtils;
 import tsingcloud.android.core.utils.LogUtils;
 
 /**
  * Description : OkHttp网络连接封装工具类
- * Author : lauren
- * Email  : lauren.liuling@gmail.com
- * Blog   : http://www.liuling123.com
- * Date   : 15/12/17
  */
 public class OkHttpUtils {
 
@@ -130,18 +126,39 @@ public class OkHttpUtils {
             public void onResponse(Response response) throws IOException {
                 try {
                     String str = response.body().string();
+                    if (TextUtils.isEmpty(str)) return;
                     LogUtils.d(TAG, "请求返回的结果是----" + str);
+                    JSONObject jsonObject = new JSONObject(str);
+                    int errcode = jsonObject.optInt("errcode");
                     if (callback.mType == String.class) {
-                        sendSuccessCallBack(callback, str);
+                        if (errcode == 2)
+                            sendTokenFailCallback(callback);
+                        else
+                            sendSuccessCallBack(callback, str);
                     } else {
                         Object object = JsonUtils.deserialize(str, callback.mType);
-                        sendSuccessCallBack(callback, object);
+                        if (errcode == 2)
+                            sendTokenFailCallback(callback);
+                        else
+                            sendSuccessCallBack(callback, object);
                     }
                 } catch (final Exception e) {
                     LogUtils.e(TAG, "convert json failure", e);
                     sendFailCallback(callback, e);
                 }
 
+            }
+        });
+    }
+
+
+    private void sendTokenFailCallback(final ResultCallback callback) {
+        mDelivery.post(new Runnable() {
+            @Override
+            public void run() {
+                if (callback != null) {
+                    callback.onTokenFailure();
+                }
             }
         });
     }
@@ -260,7 +277,9 @@ public class OkHttpUtils {
     }
 
 
-    /**********************对外接口************************/
+    /**********************
+     * 对外接口
+     ************************/
 
     /**
      * get请求
@@ -319,42 +338,48 @@ public class OkHttpUtils {
         LogUtils.i("正在取消网络请求------------------------", "TAG==" + tag);
         getmInstance().mOkHttpClient.cancel(tag);
     }
+//
+//    public static void sendRequest(RequestBean requestBean, ResultCallback callback) {
+//        if (requestBean == null) return;
+//        switch (requestBean.getRequestEnum()) {
+//            case GET:
+//                if (requestBean.getMap() == null)
+//                    getmInstance().getRequest(requestBean.getUrl(), callback, requestBean.getTag());
+//                else
+//                    getmInstance().getRequest(requestBean.getUrl(), callback, requestBean.getMap(), requestBean.getTag());
+//                break;
+//            case POST:
+//            case PUT:
+//            case DELETE:
+//                getmInstance().Request(requestBean, callback);
+//                break;
+//        }
+//
+//    }
+//    private void Request(RequestBean requestBean, ResultCallback callback) {
+//        FormEncodingBuilder builder = new FormEncodingBuilder();
+//        for (Map.Entry<String, String> entry : requestBean.getMap().entrySet()) {
+//            if (null == entry.getValue())
+//                continue;
+//            builder.add(entry.getKey(), entry.getValue());
+//            LogUtils.i(TAG, requestBean.getRequestEnum() + "请求的参数是" + entry.getKey() + "=" + entry.getValue());
+//        }
+//        RequestBody requestBody = builder.build();
+//        Request request = null;
+//        switch (requestBean.getRequestEnum()) {
+//            case PUT:
+//                request = new Request.Builder().url(requestBean.getUrl()).put(requestBody).tag(requestBean.getTag()).build();
+//                break;
+//            case POST:
+//                request = new Request.Builder().url(requestBean.getUrl()).post(requestBody).tag(requestBean.getTag()).build();
+//                break;
+//            case DELETE:
+//                request = new Request.Builder().url(requestBean.getUrl()).delete(requestBody).tag(requestBean.getTag()).build();
+//                break;
+//        }
+//        if (request == null) return;
+//        deliveryResult(callback, request);
+//    }
 
-    /**
-     * http请求回调类,回调方法在UI线程中执行
-     *
-     * @param <T>
-     */
-    public static abstract class ResultCallback<T> {
-
-        Type mType;
-
-        public ResultCallback() {
-            mType = getSuperclassTypeParameter(getClass());
-        }
-
-        static Type getSuperclassTypeParameter(Class<?> subclass) {
-            Type superclass = subclass.getGenericSuperclass();
-            if (superclass instanceof Class) {
-                throw new RuntimeException("Missing type parameter.");
-            }
-            ParameterizedType parameterized = (ParameterizedType) superclass;
-            return $Gson$Types.canonicalize(parameterized.getActualTypeArguments()[0]);
-        }
-
-        /**
-         * 请求成功回调
-         *
-         * @param response
-         */
-        public abstract void onSuccess(T response);
-
-        /**
-         * 请求失败回调
-         *
-         * @param e
-         */
-        public abstract void onFailure(Exception e);
-    }
 
 }

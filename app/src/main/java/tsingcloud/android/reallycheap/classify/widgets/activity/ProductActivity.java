@@ -30,6 +30,7 @@ import tsingcloud.android.reallycheap.utils.ImageLoaderUtils;
  */
 public class ProductActivity extends BaseListActivity<ProductBean> implements ProductView {
 
+    private static final int PRODUCT_DETAILS = 1001;
     private ProductPresenter productPresenter;
     private SmallClassifyBean smallClassifyBean;
     private ProductBean productBean;
@@ -127,13 +128,22 @@ public class ProductActivity extends BaseListActivity<ProductBean> implements Pr
             tvCurrentPrice.setText("¥" + productBean.getPrice());
             tvOriginalPrice.setText("¥" + productBean.getOld_price());
             tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            if (productBean.getStock_volume() > 0)
+                ivAdd.setSelected(true);
+            else
+                ivAdd.setSelected(false);
             ivAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (TextUtils.isEmpty(getToken()))
                         startActivity(new Intent(context, LoginActivity.class));
-                    else
-                        productPresenter.addShoppingCart(productBean.getId());
+                    else {
+                        if (productBean.getStock_volume() > 0)
+                            productPresenter.addShoppingCart(productBean.getId());
+                        else
+                            showToast("该产品暂时缺货啦\n请联系客服订货");
+                    }
+
                 }
             });
         }
@@ -142,10 +152,21 @@ public class ProductActivity extends BaseListActivity<ProductBean> implements Pr
         public void onItemClick(View view, int position) {
             Intent intent = new Intent(context, ProductDetailsActivity.class);
             intent.putExtra("id", mDataList.get(position).getId());
-            startActivity(intent);
-
+            startActivityForResult(intent, PRODUCT_DETAILS);
         }
 
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK)
+            return;
+        switch (requestCode) {
+            case PRODUCT_DETAILS:
+                setResult(RESULT_OK);
+                finish();
+                break;
+        }
     }
 }

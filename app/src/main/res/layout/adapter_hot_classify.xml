@@ -11,7 +11,7 @@
         android:id="@+id/classifyImage"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/app_name"/>
     
     <TextView

@@ -1,5 +1,6 @@
 package tsingcloud.android.reallycheap.classify.widgets.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import tsingcloud.android.core.interfaces.OnTabListener;
 import tsingcloud.android.core.widgets.fragment.BaseFragment;
 import tsingcloud.android.model.bean.ClassifyBean;
 import tsingcloud.android.model.bean.SmallClassifyBean;
@@ -29,6 +31,7 @@ import tsingcloud.android.reallycheap.utils.NetUtils;
  */
 public class ClassifyFragment extends BaseFragment implements AdapterView.OnItemClickListener, ClassifyView {
 
+    private static final int SEARCH = 1000;
     private ListView classifyListView;
     private ListView smallClassifyListView;
     private ClassifyAdapter classifyAdapter;
@@ -39,7 +42,11 @@ public class ClassifyFragment extends BaseFragment implements AdapterView.OnItem
     private int newPosition;
     private String categoryId;//分类ID
     private View reloadView;
+    private OnTabListener onTabListener;
 
+    public void setOnTabListener(OnTabListener onTabListener) {
+        this.onTabListener = onTabListener;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,13 +66,13 @@ public class ClassifyFragment extends BaseFragment implements AdapterView.OnItem
         classifyListView.setAdapter(classifyAdapter);
         classifyListView.setOnItemClickListener(this);
         smallClassifyBeanList = new ArrayList<>();
-        smallClassifyAdapter = new SmallClassifyAdapter(context, smallClassifyBeanList);
+        smallClassifyAdapter = new SmallClassifyAdapter(context, this,smallClassifyBeanList);
         smallClassifyListView.setAdapter(smallClassifyAdapter);
         view.findViewById(R.id.search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, SearchActivity.class);
-                startActivity(intent);
+               startActivityForResult(intent,SEARCH);
             }
         });
     }
@@ -157,5 +164,19 @@ public class ClassifyFragment extends BaseFragment implements AdapterView.OnItem
     public void refresh() {
         if (classifyPresenter != null)
             classifyPresenter.getClassifyData();
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK)
+            return;
+        switch (requestCode) {
+            case SEARCH:
+                onTabListener.onTabSwitch(2,null);
+                break;
+            case SmallClassifyAdapter.PRODUCT:
+                onTabListener.onTabSwitch(2,null);
+                break;
+        }
     }
 }

@@ -20,7 +20,7 @@ import tsingcloud.android.reallycheap.classify.widgets.activity.ProductDetailsAc
 import tsingcloud.android.reallycheap.my.presenter.MessagePromptPresenter;
 import tsingcloud.android.reallycheap.my.view.MessagePromptView;
 import tsingcloud.android.reallycheap.utils.ImageLoaderUtils;
-import tsingcloud.android.reallycheap.widgets.view.AlertDialog;
+import tsingcloud.android.reallycheap.widgets.view.CustomAlertDialog;
 
 /**
  * Created by admin on 2016/5/3.
@@ -75,12 +75,12 @@ public class MessagePromptActivity extends BaseListActivity<MessagePromptBean> i
 
     @Override
     public void setMessagePromptList(List<MessagePromptBean> messagePromptList) {
-        if (null != messagePromptList&&messagePromptList.size()>0) {
+        if (null != messagePromptList && messagePromptList.size() > 0) {
             findViewById(R.id.empty).setVisibility(View.GONE);
             mDataList.clear();
             mDataList.addAll(messagePromptList);
             adapter.notifyDataSetChanged();
-        }else {
+        } else {
             findViewById(R.id.empty).setVisibility(View.VISIBLE);
         }
     }
@@ -96,6 +96,7 @@ public class MessagePromptActivity extends BaseListActivity<MessagePromptBean> i
         mDataList.clear();
         adapter.notifyDataSetChanged();
     }
+
     @Override
     public void clickRight() {
         if (mDataList.size() > 0)
@@ -113,7 +114,7 @@ public class MessagePromptActivity extends BaseListActivity<MessagePromptBean> i
         private TextView tvContent;//内容
         private TextView tvTime;//时间
         private TextView tvOperation;//操作
-        private AlertDialog alertDialog;
+        private CustomAlertDialog alertDialog;
         private int oldPosition;
 
         public MessagePromptViewHolder(View itemView, Context context, List<MessagePromptBean> list) {
@@ -137,18 +138,18 @@ public class MessagePromptActivity extends BaseListActivity<MessagePromptBean> i
 
         @Override
         public void onBindViewHolder(int position) {
-            this.oldPosition=position;
+            this.oldPosition = position;
             final MessagePromptBean messagePromptBean = mDataList.get(position);
             tvTitle.setText(messagePromptBean.getTitle());
-            if (0==messagePromptBean.getIs_new())
+            if (0 == messagePromptBean.getIs_new())
                 tvTitle.setSelected(true);
             else
                 tvTitle.setSelected(false);
-            if (0==messagePromptBean.getObj_type()) {
+            if (0 == messagePromptBean.getObj_type()) {
                 ivImage.setVisibility(View.VISIBLE);
                 tvOperation.setText("查看产品详情");
                 ImageLoaderUtils.display(context, ivImage, messagePromptBean.getImage(), R.drawable.product_default_icon, R.drawable.product_default_icon);
-            } else {
+            } else if (1 == messagePromptBean.getObj_type()) {
                 ivImage.setVisibility(View.GONE);
                 tvOperation.setText("查看订单详情");
             }
@@ -159,31 +160,31 @@ public class MessagePromptActivity extends BaseListActivity<MessagePromptBean> i
         @Override
         public void onItemClick(View view, int position) {
             Intent intent;
-            if (0==mDataList.get(position).getIs_new()){
+            if (0 == mDataList.get(position).getIs_new()) {
                 messagePromptPresenter.readMessagePrompt(mDataList.get(position).getId());
                 mDataList.get(position).setIs_new(1);
                 adapter.notifyDataSetChanged();
             }
             if ("查看产品详情".equals(tvOperation.getText().toString())) {
-                intent=new Intent(context, ProductDetailsActivity.class);
+                intent = new Intent(context, ProductDetailsActivity.class);
                 intent.putExtra("id", mDataList.get(position).getObj_id());
                 startActivity(intent);
 
             } else if ("查看订单详情".equals(tvOperation.getText().toString())) {
-                intent=new Intent(context, OrderDetailsActivity.class);
-                intent.putExtra("id",mDataList.get(position).getObj_id());
+                intent = new Intent(context, OrderDetailsActivity.class);
+                intent.putExtra("id", mDataList.get(position).getObj_id());
                 startActivity(intent);
             }
         }
 
         public void delete() {
             if (alertDialog == null) {
-                alertDialog = new AlertDialog(context).builder();
-                alertDialog.setTitle("您确定要删除这些商品吗？")
+                alertDialog = new CustomAlertDialog(context).builder();
+                alertDialog.setTitle("您确定要删除这条消息吗？")
                         .setPositiveButton("是", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                messagePromptPresenter.deleteMessagePrompt(mDataList.get(oldPosition).getId(),oldPosition);
+                                messagePromptPresenter.deleteMessagePrompt(mDataList.get(oldPosition).getId(), oldPosition);
                                 alertDialog.dismiss();
                             }
                         }).setNegativeButton("否", new View.OnClickListener() {

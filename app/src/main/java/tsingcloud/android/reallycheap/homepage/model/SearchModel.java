@@ -16,7 +16,7 @@ public interface SearchModel {
 
     void search(Map<String, String> map, OnNSURLRequestListener<List<ProductBean>> listener, OnSetListTotalPagesListener totalPagesListener,SearchModelImpl.ErrCodeListener errCodeListener, String tag);
 
-    void addShoppingCart(Map<String, String> map, OnNSURLRequestListener<String> listener, String tag);
+    //void addShoppingCart(Map<String, String> map, OnNSURLRequestListener<String> listener, String tag);
 
 
 }

@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 import tsingcloud.android.core.cache.LocalCache;
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.interfaces.OnSetListTotalPagesListener;
 import tsingcloud.android.model.bean.ProductBean;
 import tsingcloud.android.reallycheap.homepage.model.SearchModel;
@@ -44,16 +43,10 @@ public class SearchResultsPresenter extends ProductBasePresenter {
             return;
         }
         map.put("name_like", searchContent);
-        searchModel.search(map, new OnNSURLRequestListener<List<ProductBean>>() {
+        searchModel.search(map, new AbstractOnNSURLRequestListener<List<ProductBean>>() {
             @Override
             public void onSuccess(List<ProductBean> productBeanList) {
                 searchResultsView.setSearchResultsData(productBeanList);
-            }
-
-
-            @Override
-            public void onFailure(String msg) {
-                searchResultsView.showToast(msg);
             }
         }, new OnSetListTotalPagesListener() {
             @Override
@@ -67,27 +60,6 @@ public class SearchResultsPresenter extends ProductBasePresenter {
             }
         }, searchResultsView.getTAG());
     }
-
-//    public void addShoppingCart(String productId) {
-//        if (TextUtils.isEmpty(searchResultsView.getToken()) || TextUtils.isEmpty(searchResultsView.getShopId()))
-//            return;
-//        Map<String, String> map = new HashMap<>();
-//        map.put("token", searchResultsView.getToken());
-//        map.put("shop_id", searchResultsView.getShopId());
-//        map.put("product_id", productId);
-//        map.put("product_num", "1");
-//        searchModel.addShoppingCart(map, new OnNSURLRequestListener<String>() {
-//            @Override
-//            public void onSuccess(String response) {
-//                searchResultsView.showToast(response);
-//            }
-//
-//            @Override
-//            public void onFailure(String msg) {
-//                searchResultsView.showToast(msg);
-//            }
-//        }, searchResultsView.getTAG());
-//    }
 
     public void saveHistorySearch(Context context, String searchContent) {
         JSONArray jsonArray = LocalCache.get(context).getAsJSONArray("historySearch");

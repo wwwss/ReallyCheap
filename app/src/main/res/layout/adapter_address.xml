@@ -12,7 +12,7 @@
         android:layout_marginTop="@dimen/margin_general"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_small" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_below="@+id/name"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_small" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_marginBottom="@dimen/margin_general"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_small" />
 
     <ImageView

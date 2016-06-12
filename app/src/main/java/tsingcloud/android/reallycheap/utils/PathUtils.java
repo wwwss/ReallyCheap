@@ -10,7 +10,7 @@ import java.io.File;
 
 public class PathUtils {
 	
-	public static String getUriPath(Intent data,Activity activity ){
+	public static String getUriPath(Intent data,Activity activity){
 		Uri uri = data.getData();
 		if (uri == null) {
 			return null;

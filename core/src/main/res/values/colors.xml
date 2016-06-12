@@ -6,7 +6,7 @@
     <color name="line_bg">#efefef</color>
     <color name="orange">#ff5a1e</color>
     <color name="grey">#666666</color>
-    <color name="text_color_grey">#666666</color>
+    <color name="text_color_gray">#666666</color>
     <color name="text_color_red">#f53030</color>
     <color name="text_color_dark">#999999</color>
 </resources>

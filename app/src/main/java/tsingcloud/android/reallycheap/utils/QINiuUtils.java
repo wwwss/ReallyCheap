@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import tsingcloud.android.api.Api;
+import tsingcloud.android.core.callback.ResultCallback;
 import tsingcloud.android.core.interfaces.UploadPicturesListener;
 import tsingcloud.android.core.okhttp.OkHttpUtils;
 import tsingcloud.android.core.utils.LogUtils;
@@ -41,7 +42,7 @@ public class QINiuUtils {
         if (!ToolsUtil.fileIsExists(filePath))
             return;
         listener.onUploadStart();
-        OkHttpUtils.get(Api.UPDATE_IMAGE_TOKEN, new OkHttpUtils.ResultCallback<String>() {
+        OkHttpUtils.get(Api.UPDATE_IMAGE_TOKEN, new ResultCallback<String>() {
             @Override
             public void onSuccess(String response) {
                 try {

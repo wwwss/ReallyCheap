@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import tsingcloud.android.api.Api;
+import tsingcloud.android.core.callback.ResultCallback;
 import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.interfaces.OnSetListTotalPagesListener;
+import tsingcloud.android.core.okhttp.OkHttpUtils;
 import tsingcloud.android.model.bean.ApiResponseBean;
 import tsingcloud.android.model.bean.OrderBean;
-import tsingcloud.android.core.okhttp.OkHttpUtils;
 import tsingcloud.android.model.bean.OrderInfoBean;
 
 /**
@@ -20,13 +21,15 @@ public class MyOrderModelImpl implements MyOrderModel {
 
     @Override
     public void getOrderList(Map<String, String> map, final OnNSURLRequestListener<List<OrderBean>> listener, final OnSetListTotalPagesListener totalPagesListener, String tag) {
-        OkHttpUtils.get(Api.ORDERS, new OkHttpUtils.ResultCallback<ApiResponseBean<List<OrderBean>>>() {
+        OkHttpUtils.get(Api.ORDERS, new ResultCallback<ApiResponseBean<List<OrderBean>>>() {
             @Override
             public void onSuccess(ApiResponseBean<List<OrderBean>> response) {
                 if (response.isSuccess()) {
                     listener.onSuccess(response.getObjList());
                     totalPagesListener.setTotalPages(response.getTotal_pages());
-                } else
+                }
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();else
                     listener.onFailure(response.getErrmsg());
             }
 
@@ -39,11 +42,13 @@ public class MyOrderModelImpl implements MyOrderModel {
 
     @Override
     public void getPayInfo(Map<String, String> map, final OnNSURLRequestListener<OrderInfoBean> listener, String tag) {
-        OkHttpUtils.get(Api.GET_ORDER_PAY_INFO, new OkHttpUtils.ResultCallback<ApiResponseBean<OrderInfoBean>>() {
+        OkHttpUtils.get(Api.GET_ORDER_PAY_INFO, new ResultCallback<ApiResponseBean<OrderInfoBean>>() {
             @Override
             public void onSuccess(ApiResponseBean<OrderInfoBean> response) {
                 if (response.isSuccess())
                     listener.onSuccess(response.getObj());
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
                 else
                     listener.onFailure(response.getErrmsg());
             }
@@ -57,12 +62,14 @@ public class MyOrderModelImpl implements MyOrderModel {
 
     @Override
     public void confirmReceipt(Map<String, String> map, final OnNSURLRequestListener<String> listener, String tag) {
-        OkHttpUtils.get(Api.CONFIRM_RECEIPT, new OkHttpUtils.ResultCallback<ApiResponseBean<String>>() {
+        OkHttpUtils.get(Api.CONFIRM_RECEIPT, new ResultCallback<ApiResponseBean<String>>() {
             @Override
             public void onSuccess(ApiResponseBean<String> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccess())
                     listener.onSuccess(response.getErrmsg());
-                } else
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
+                 else
                     listener.onFailure(response.getErrmsg());
             }
 

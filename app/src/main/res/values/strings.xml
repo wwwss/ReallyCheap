@@ -42,10 +42,12 @@
     <string name="go_settlement">去结算</string>
     <string name="subtract">—</string>
     <string name="plus">＋</string>
+    <string name="totals">合计</string>
     <string name="total">合计：</string>
     <string name="confirm_order">确认订单</string>
     <string name="alipay">支付宝</string>
     <string name="cash_on_delivery">货到付款</string>
+    <string name="take_their">到店自提</string>
     <string name="total_price">商品金额</string>
     <string name="freight">运费</string>
     <string name="cope_with">应付</string>
@@ -88,7 +90,12 @@
     <string name="positioning_location">定位当前位置</string>
     <string name="select_store">选择店面</string>
     <string name="network_anomaly">亲，您的网络状况不太好哦！</string>
-
-
+    <string name="microphone_hint">按住说出你要的商品</string>
+    <string name="remarks_hint">暂无备注</string>
+    <string name="remarks">备注</string>
+    <string name="xieyi">用户协议</string>
+    <string name="about_us_hint">醉食汇，您身边的便利网上超市。一键下单、快速送达！ 我们的产品：新鲜水果、南北干货、五谷杂粮、饼干蛋糕、坚果炒货、牛奶乳品、饮料酒水、酱菜调味、方便速食、美味糖果、花茶冲饮等。 我们的服务：产品新鲜、质量保证、品质稳定、服务优质、快速送达。 以质量求生存、以服务求发展！ 支持送货上门、到店自取、 支持在线支付、货到付款、</string>
+    <string name="about_us_text">Copyright2015-2016\n上海青云信息科技有限公司</string>
+    <string name="call_phone">联系商家</string>
     <item name="tag_image_url" type="id"></item>
 </resources>

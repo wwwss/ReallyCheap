@@ -64,7 +64,7 @@
                     android:paddingLeft="@dimen/margin_general_big"
                     android:text="@string/no_shipping_address_hint"
                     android:textColor="@color/orange"
-                    android:textSize="@dimen/text_size_normal"/>
+                    android:textSize="@dimen/text_size_normal" />
 
                 <LinearLayout
                     android:id="@+id/shippingAddress"
@@ -189,6 +189,18 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/totalHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/total_hint_bg_icon"
+        android:paddingBottom="@dimen/margin_smaller"
+        android:paddingLeft="@dimen/margin_general_big"
+        android:paddingTop="@dimen/margin_smaller"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_normal"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/shoppingCartFootView"
         android:layout_width="match_parent"
@@ -198,30 +210,23 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:visibility="gone"
-       >
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/total"
-            android:textColor="@color/text_color_grey"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_normal" />
 
         <TextView
             android:id="@+id/totalPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/text_color_red"
-            android:textSize="@dimen/text_size_normal" />
-
-        <TextView
-            android:id="@+id/totalHint"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/text_color_grey"
+            android:textColor="@color/text_color_red"
             android:textSize="@dimen/text_size_normal" />
+
 
         <TextView
             android:id="@+id/operation"

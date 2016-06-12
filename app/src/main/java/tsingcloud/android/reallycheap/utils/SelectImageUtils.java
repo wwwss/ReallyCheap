@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import tsingcloud.android.reallycheap.widgets.view.ActionSheetDialog;
 
 /**
  * Created by admin on 2016/4/16.
+ * 选择图片工具类
  */
 public class SelectImageUtils implements ActionSheetDialog.OnSheetItemClickListener {
     private Fragment fragment = null;
@@ -27,11 +29,11 @@ public class SelectImageUtils implements ActionSheetDialog.OnSheetItemClickListe
     public static final int GALLERY = 1;
 
 
-//    public SelectImageUtils(Fragment fragment) {
-//        this.fragment = fragment;
-//    }
+    public SelectImageUtils(Fragment fragment) {
+        this.fragment = fragment;
+    }
 
-    public  SelectImageUtils(Activity activity) {
+    public SelectImageUtils(Activity activity) {
         this.activity = activity;
     }
 
@@ -61,7 +63,10 @@ public class SelectImageUtils implements ActionSheetDialog.OnSheetItemClickListe
                     else
                         activity.startActivityForResult(intent, CAMERA);
                 } catch (Exception e) {
-
+                    if (fragment != null)
+                        Toast.makeText(fragment.getActivity(), "打开相机失败", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(activity, "打开相机失败", Toast.LENGTH_SHORT).show();
                 }
                 break;
             // 相册

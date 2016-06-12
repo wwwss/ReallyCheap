@@ -36,8 +36,8 @@
             android:imeOptions="actionSearch"
             android:paddingLeft="13dp"
             android:singleLine="true"
-            android:textColor="@color/text_color_grey"
-            android:textColorHint="@color/text_color_grey"
+            android:textColor="@color/text_color_gray"
+            android:textColorHint="@color/text_color_gray"
             android:textSize="@dimen/text_size_small" />
     </RelativeLayout>
 

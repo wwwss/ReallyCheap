@@ -11,6 +11,7 @@
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_margin="@dimen/margin_small"
+        android:scaleType="centerCrop"
         android:visibility="gone" />
 
     <TextView
@@ -37,7 +38,7 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:minHeight="31dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_min" />
 
     <TextView
@@ -49,7 +50,7 @@
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
         android:minHeight="44dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_min" />
 
     <TextView
@@ -61,7 +62,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         android:minHeight="44dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_min" />
 
 

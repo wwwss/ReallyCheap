@@ -46,9 +46,11 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
         homePageFragment = new HomepageFragment();
         homePageFragment.setOnTabListener(this);
         classifyFragment = new ClassifyFragment();
+        classifyFragment.setOnTabListener(this);
         shoppingCartFragment = new ShoppingCartFragment();
-        shoppingCartFragment.setOnTabSwitchToListener(this);
+        shoppingCartFragment.setOnTabListener(this);
         myFragment = new MyFragment();
+        myFragment.setOnTabListener(this);
         fragments = new Fragment[]{homePageFragment, classifyFragment, shoppingCartFragment, myFragment};
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         // 添加fragments显示第一个fragment
@@ -148,4 +150,11 @@ public class MainActivity extends BaseActivity implements OnNavigationBarClickLi
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                           int[] grantResults) {
+//        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+//    }
 }

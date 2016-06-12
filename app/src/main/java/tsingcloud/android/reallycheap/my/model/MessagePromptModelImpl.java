@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import tsingcloud.android.api.Api;
+import tsingcloud.android.core.callback.ResultCallback;
 import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.interfaces.OnSetListTotalPagesListener;
 import tsingcloud.android.core.okhttp.OkHttpUtils;
@@ -13,18 +14,20 @@ import tsingcloud.android.model.bean.MessagePromptBean;
 
 /**
  * Created by admin on 2016/4/29.
- * 收藏宝贝数据实现类
+ * 消息实现类
  */
 public class MessagePromptModelImpl implements MessagePromptModel {
     @Override
     public void getMessagePromptList(Map<String, String> map, final OnNSURLRequestListener<List<MessagePromptBean>> listener, final OnSetListTotalPagesListener totalPagesListener, String tag) {
-        OkHttpUtils.get(Api.MESSAGE_PROMPT, new OkHttpUtils.ResultCallback<ApiResponseBean<List<MessagePromptBean>>>() {
+        OkHttpUtils.get(Api.MESSAGE_PROMPT, new ResultCallback<ApiResponseBean<List<MessagePromptBean>>>() {
             @Override
             public void onSuccess(ApiResponseBean<List<MessagePromptBean>> response) {
                 if (response.isSuccess()) {
                     listener.onSuccess(response.getObjList());
                     totalPagesListener.setTotalPages(response.getTotal_pages());
-                } else
+                } else if (response.isTokenFailure())
+                    listener.onTokenFailure();
+                else
                     listener.onFailure(response.getErrmsg());
             }
 
@@ -38,12 +41,14 @@ public class MessagePromptModelImpl implements MessagePromptModel {
 
     @Override
     public void deleteMessagePrompt(Map<String, String> map, final OnNSURLRequestListener<String> listener, String tag) {
-        OkHttpUtils.delete(Api.MESSAGE_PROMPT, new OkHttpUtils.ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
+        OkHttpUtils.delete(Api.MESSAGE_PROMPT, new ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
             @Override
             public void onSuccess(ApiResponseBean<List<CollectBabyBean>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccess())
                     listener.onSuccess(response.getErrmsg());
-                } else
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
+                 else
                     listener.onFailure(response.getErrmsg());
             }
 
@@ -56,12 +61,14 @@ public class MessagePromptModelImpl implements MessagePromptModel {
 
     @Override
     public void clearMessagePrompt(Map<String, String> map, final OnNSURLRequestListener<String> listener, String tag) {
-        OkHttpUtils.get(Api.DELETE_MESSAGE_PROMPT, new OkHttpUtils.ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
+        OkHttpUtils.get(Api.DELETE_MESSAGE_PROMPT, new ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
             @Override
             public void onSuccess(ApiResponseBean<List<CollectBabyBean>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccess())
                     listener.onSuccess(response.getErrmsg());
-                } else
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
+                 else
                     listener.onFailure(response.getErrmsg());
             }
 
@@ -74,12 +81,14 @@ public class MessagePromptModelImpl implements MessagePromptModel {
 
     @Override
     public void readMessagePrompt(Map<String, String> map, final OnNSURLRequestListener<String> listener, String tag) {
-        OkHttpUtils.get(Api.READ_MESSAGE_PROMPT, new OkHttpUtils.ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
+        OkHttpUtils.get(Api.READ_MESSAGE_PROMPT, new ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
             @Override
             public void onSuccess(ApiResponseBean<List<CollectBabyBean>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccess())
                     listener.onSuccess(response.getErrmsg());
-                } else
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
+                else
                     listener.onFailure(response.getErrmsg());
             }
 

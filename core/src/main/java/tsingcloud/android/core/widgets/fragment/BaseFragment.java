@@ -15,6 +15,7 @@ import tsingcloud.android.core.R;
 import tsingcloud.android.core.cache.LocalCache;
 import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.core.view.BaseView;
+import tsingcloud.android.model.bean.ShopBean;
 
 /**
  * Created by Stay on 22/10/15.
@@ -39,7 +40,7 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         super.onViewCreated(view, savedInstanceState);
         this.context = getActivity();
         this.view = view;
-        basePresenter=new BasePresenter(this);
+        basePresenter = new BasePresenter(this);
         setUpView();
         setUpData();
     }
@@ -61,12 +62,22 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     @Override
     public String getShopId() {
-        return LocalCache.get(context).getAsString("shopId");
+        ShopBean shopBean = (ShopBean) LocalCache.get(context).getAsObject("shopBean");
+        if (shopBean == null)
+            return null;
+        else
+            return shopBean.getId();
     }
 
 //    @Override
 //    public void toLoginActivity() {
 //    }
+
+    @Override
+    public void TokenFailure() {
+        LocalCache.get(context).remove("token");
+        Toast.makeText(context, "登录已过期，请重新登录", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void showToast(String msg) {
@@ -120,8 +131,9 @@ public abstract class BaseFragment extends Fragment implements BaseView {
     public void onDestroy() {
         //basePresenter.cancelRequest(TAG);
         super.onDestroy();
-
     }
+
+
 
 
 }

@@ -21,6 +21,7 @@ import tsingcloud.android.reallycheap.widgets.view.SilderListView;
 
 public class CollectBabyActivity extends BaseActivity implements OnItemClickListener, OnScrollListener, CollectBabyView {
 
+    private static final int PRODUCT_DETAILS = 1001;
     private int pageNum = 1;
     private SilderListView silderListView;
     private List<CollectBabyBean> collectBabyBeanList;
@@ -62,7 +63,7 @@ public class CollectBabyActivity extends BaseActivity implements OnItemClickList
         CollectBabyBean collectBabyBean = (CollectBabyBean) parent.getItemAtPosition(position);
         Intent intent = new Intent(this, ProductDetailsActivity.class);
         intent.putExtra("id", collectBabyBean.getProduct_id());
-        startActivity(intent);
+        startActivityForResult(intent, PRODUCT_DETAILS);
     }
 
 
@@ -110,5 +111,17 @@ public class CollectBabyActivity extends BaseActivity implements OnItemClickList
     @Override
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK)
+            return;
+        switch (requestCode) {
+            case PRODUCT_DETAILS:
+                setResult(RESULT_OK);
+                finish();
+                break;
+        }
     }
 }

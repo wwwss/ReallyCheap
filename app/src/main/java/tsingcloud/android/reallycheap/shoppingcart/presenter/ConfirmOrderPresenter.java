@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.model.bean.OrderBean;
 import tsingcloud.android.model.bean.OrderInfoBean;
@@ -50,8 +49,10 @@ public class ConfirmOrderPresenter extends BasePresenter {
         map.put("area", orderBean.getArea());
         map.put("detail", orderBean.getDetail());
 //        map.put("address_id", orderBean.getAddress_id());
-        map.put("money", orderBean.getTotal_price());
+        map.put("money", orderBean.getProducts_price()+"");
         map.put("order_type", orderBean.getOrder_type() + "");
+        if (!TextUtils.isEmpty(orderBean.getRemarks()))
+            map.put("remarks", orderBean.getRemarks());
         JSONArray jsonArray = new JSONArray();
         List<ProductBean> productBeanList = orderBean.getProducts();
         if (null == productBeanList || productBeanList.size() == 0)
@@ -66,7 +67,7 @@ public class ConfirmOrderPresenter extends BasePresenter {
         }
         map.put("products", jsonArray.toString());
         loadingDialog.show();
-        confirmOrderModel.submitOrder(map, new OnNSURLRequestListener<OrderBean>() {
+        confirmOrderModel.submitOrder(map, new AbstractOnNSURLRequestListener<OrderBean>() {
             @Override
             public void onSuccess(OrderBean response) {
                 loadingDialog.dismiss();
@@ -75,8 +76,7 @@ public class ConfirmOrderPresenter extends BasePresenter {
 
             @Override
             public void onFailure(String msg) {
-                loadingDialog.dismiss();
-                confirmOrderView.showToast(msg);
+                super.onFailure(msg);
             }
         }, confirmOrderView.getTAG());
     }
@@ -88,7 +88,7 @@ public class ConfirmOrderPresenter extends BasePresenter {
         map.put("token", confirmOrderView.getToken());
         map.put("order_id", orderId);
         loadingDialog.show();
-        confirmOrderModel.getPayInfo(map, new OnNSURLRequestListener<OrderInfoBean>() {
+        confirmOrderModel.getPayInfo(map, new AbstractOnNSURLRequestListener<OrderInfoBean>() {
             @Override
             public void onSuccess(final OrderInfoBean response) {
                 loadingDialog.dismiss();
@@ -107,12 +107,6 @@ public class ConfirmOrderPresenter extends BasePresenter {
                         mHandler.sendMessage(msg);
                     }
                 }).start();
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                loadingDialog.dismiss();
-                confirmOrderView.showToast(msg);
             }
         }, confirmOrderView.getTAG());
 

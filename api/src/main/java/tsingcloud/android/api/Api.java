@@ -6,20 +6,20 @@ package tsingcloud.android.api;
  */
 public interface Api {
 
-//    /**
-//     * 公网服务器地址
-//     */
-//    String SERVER = "http://jinhuola.cc/";
+    /**
+     * 公网服务器地址
+     */
+    String SERVER = "http://jinhuola.cc/";
 
 //    /**
 //     * 测试服务器地址
 //     */
 //    String SERVER = "http://192.168.1.116:4000/";
 
-    /**
-     * 测试服务器地址2
-     */
-    String SERVER = "http://192.168.3.20:4000/";
+//    /**
+//     * 测试服务器地址2
+//     */
+//    String SERVER = "http://192.168.3.20:4000/";
 
     /**
      * 公网服务器接口地址
@@ -30,11 +30,6 @@ public interface Api {
      * 上传图片
      */
     String UPLOADPICTURES = SERVER_API + "users?";
-
-    /**
-     * 服务协议地址
-     */
-    String AGREEMENT_ADDRESS = "http://103.21.117.21/service_agreement";
 
     /**
      * 程序入口初始化接口
@@ -195,6 +190,11 @@ public interface Api {
      * 阅读消息提示接口
      */
     String READ_MESSAGE_PROMPT = SERVER_API + "messages/is_read";
+
+    /**
+     * 用户协议
+     */
+    String XIE_YI = SERVER+"user_agreements";
 
 //    /**
 //     * 发送验证码

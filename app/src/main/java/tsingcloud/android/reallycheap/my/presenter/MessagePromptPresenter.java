@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.interfaces.OnSetListTotalPagesListener;
+import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.model.bean.MessagePromptBean;
 import tsingcloud.android.reallycheap.my.model.MessagePromptModel;
 import tsingcloud.android.reallycheap.my.model.MessagePromptModelImpl;
@@ -17,11 +17,12 @@ import tsingcloud.android.reallycheap.my.view.MessagePromptView;
  * Created by admin on 2016/4/29.
  * 收藏宝贝控制器
  */
-public class MessagePromptPresenter {
+public class MessagePromptPresenter extends BasePresenter{
     private MessagePromptView messagePromptView;
     private MessagePromptModel messagePromptModel;
 
     public MessagePromptPresenter(MessagePromptView messagePromptView) {
+        super(messagePromptView);
         this.messagePromptView = messagePromptView;
         messagePromptModel = new MessagePromptModelImpl();
     }
@@ -34,15 +35,10 @@ public class MessagePromptPresenter {
         map.put("token", messagePromptView.getToken());
         map.put("shop_id", messagePromptView.getShopId());
         map.put("page_num", pageNum + "");
-        messagePromptModel.getMessagePromptList(map, new OnNSURLRequestListener<List<MessagePromptBean>>() {
+        messagePromptModel.getMessagePromptList(map, new AbstractOnNSURLRequestListener<List<MessagePromptBean>>() {
             @Override
             public void onSuccess(List<MessagePromptBean> response) {
                 messagePromptView.setMessagePromptList(response);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                messagePromptView.showToast(msg);
             }
         }, new OnSetListTotalPagesListener() {
             @Override
@@ -58,7 +54,7 @@ public class MessagePromptPresenter {
         Map<String, String> map = new HashMap<>();
         map.put("token", messagePromptView.getToken());
         map.put("id", id);
-        messagePromptModel.deleteMessagePrompt(map, new OnNSURLRequestListener<String>() {
+        messagePromptModel.deleteMessagePrompt(map, new AbstractOnNSURLRequestListener<String>() {
             @Override
             public void onSuccess(String response) {
                 messagePromptView.showToast(response);
@@ -78,16 +74,11 @@ public class MessagePromptPresenter {
         Map<String, String> map = new HashMap<>();
         map.put("token", messagePromptView.getToken());
         map.put("shop_id", messagePromptView.getShopId());
-        messagePromptModel.clearMessagePrompt(map, new OnNSURLRequestListener<String>() {
+        messagePromptModel.clearMessagePrompt(map, new AbstractOnNSURLRequestListener<String>() {
             @Override
             public void onSuccess(String response) {
                 messagePromptView.showToast(response);
                 messagePromptView.clearComplete();
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                messagePromptView.showToast(msg);
             }
         }, messagePromptView.getTAG());
     }
@@ -98,15 +89,10 @@ public class MessagePromptPresenter {
         Map<String, String> map = new HashMap<>();
         map.put("token", messagePromptView.getToken());
         map.put("id", id);
-        messagePromptModel.readMessagePrompt(map, new OnNSURLRequestListener<String>() {
+        messagePromptModel.readMessagePrompt(map, new AbstractOnNSURLRequestListener<String>() {
             @Override
             public void onSuccess(String response) {
                 messagePromptView.showToast(response);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                messagePromptView.showToast(msg);
             }
         }, messagePromptView.getTAG());
 

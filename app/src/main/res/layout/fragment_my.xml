@@ -105,7 +105,7 @@
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:text="@string/my_order"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_small" />
 
                 <TextView
@@ -116,7 +116,7 @@
                     android:layout_toLeftOf="@+id/all_order_enter_icon"
                     android:gravity="center_vertical"
                     android:text="@string/see_all"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_small" />
 
                 <ImageView
@@ -163,7 +163,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/stay_pay"
-                        android:textColor="@color/text_color_grey"
+                        android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/text_size_small" />
                 </RelativeLayout>
 
@@ -190,7 +190,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/stay_receiving"
-                        android:textColor="@color/text_color_grey"
+                        android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/text_size_small" />
                 </RelativeLayout>
 
@@ -217,7 +217,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/completed"
-                        android:textColor="@color/text_color_grey"
+                        android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/text_size_small" />
                 </RelativeLayout>
 
@@ -244,7 +244,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/refund"
-                        android:textColor="@color/text_color_grey"
+                        android:textColor="@color/text_color_gray"
                         android:textSize="@dimen/text_size_small" />
                 </RelativeLayout>
 
@@ -278,7 +278,7 @@
                     android:layout_toRightOf="@+id/collectionProduct"
                     android:gravity="center_vertical"
                     android:text="@string/collection_product"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_small" />
 
                 <ImageView
@@ -320,7 +320,7 @@
                     android:layout_toRightOf="@+id/address_icon"
                     android:gravity="center_vertical"
                     android:text="@string/address_management"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_small" />
 
                 <ImageView
@@ -363,7 +363,7 @@
                     android:layout_toRightOf="@+id/kefu_icon"
                     android:gravity="center_vertical"
                     android:text="@string/kefu"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_small" />
 
                 <ImageView
@@ -404,7 +404,7 @@
                     android:layout_toRightOf="@+id/about_us_icon"
                     android:gravity="center_vertical"
                     android:text="@string/about_us"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_small" />
 
                 <ImageView

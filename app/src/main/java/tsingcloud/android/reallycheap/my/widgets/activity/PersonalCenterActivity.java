@@ -1,13 +1,19 @@
 package tsingcloud.android.reallycheap.my.widgets.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 import tsingcloud.android.core.cache.LocalCache;
 import tsingcloud.android.core.interfaces.UploadPicturesListener;
+import tsingcloud.android.core.utils.LogUtils;
 import tsingcloud.android.core.widgets.activity.BaseActivity;
 import tsingcloud.android.model.bean.UserBean;
 import tsingcloud.android.reallycheap.R;
@@ -98,9 +104,15 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void updateAvatar() {
-        if (selectImageUtils == null)
-            selectImageUtils = new SelectImageUtils(this);
-        selectImageUtils.showSelectDialog();
+        if (Build.VERSION.SDK_INT >= 23) {
+            PermissionGen.with(PersonalCenterActivity.this)
+                    .addRequestCode(100)
+                    .permissions(Manifest.permission.CAMERA)
+                    .request();
+        } else {
+            openCamera();
+        }
+
     }
 
     @Override
@@ -159,5 +171,26 @@ public class PersonalCenterActivity extends BaseActivity implements View.OnClick
             setResult(RESULT_OK, intent);
         }
         super.finish();
+    }
+
+    @PermissionSuccess(requestCode = 100)
+    public void openCamera() {
+        LogUtils.d(TAG, "=============================");
+        if (selectImageUtils == null)
+            selectImageUtils = new SelectImageUtils(this);
+        selectImageUtils.showSelectDialog();
+
+    }
+
+    @PermissionFail(requestCode = 100)
+    public void failCamera() {
+        LogUtils.d(TAG, "------------------------------");
+        showToast("权限请求被拒绝");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 }

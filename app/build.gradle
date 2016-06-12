@@ -1,5 +1,14 @@
 apply plugin: 'com.android.application'
 
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+    }
+}
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -10,18 +19,24 @@ android {
     }
     defaultConfig {
         applicationId "tsingcloud.android.reallycheap"
-        minSdkVersion 19
+        minSdkVersion 8
         targetSdkVersion 23
-        versionCode 1
+        versionCode 20160612
         versionName "1.0"
-        //参数说明
+        // dex突破65535的限制
+        multiDexEnabled true
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "channel_name"]
+        //参数说明APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
         manifestPlaceholders = [
                 GETUI_APP_ID    : "sMiAnv2teHAzXZzc47rne2",
                 GETUI_APP_KEY   : "Z8rKKfvsHc7DP0ZMLNnSc7",
                 GETUI_APP_SECRET: "hLQYTLhcrM7sHCMljCViC9",
                 PACKAGE_NAME    : "tsingcloud.android.reallycheap"
         ]
-//APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
+    }
+    //执行lint检查，有任何的错误或者警告提示，都会终止构建，我们可以将其关掉。
+    lintOptions {
+        abortOnError false
     }
     signingConfigs {
         release {
@@ -33,19 +48,59 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig signingConfigs.release
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
         }
         release {
-            signingConfig signingConfigs.release
-            minifyEnabled false
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    //渠道Flavors，配置不同风格的app
+    productFlavors {
+        GooglePlay {}
+        xiaomi {}
+        umeng {}
+        _360 {}
+        baidu {}
+        wandoujia {}
+    }
+    //批量配置
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def fileName = outputFile.name.replace(".apk", "-${defaultConfig.versionName}.apk")
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
         }
     }
 }
-repositories {
-    jcenter()
-    mavenCentral()
-}
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -64,4 +119,7 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.2.0'
     compile 'com.getui:sdk:+'
     compile 'com.getui:ext:+'
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
+    compile 'com.lovedise:permissiongen:0.0.6'
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,7 +27,6 @@ import tsingcloud.android.reallycheap.widgets.adapter.BaseAdapter;
  */
 public class HotProductGridViewAdapter extends BaseAdapter<ProductBean> {
 
-    private int oldPosition;
     private HomepagePresenter homePagePresenter;
 
     public HotProductGridViewAdapter(Context context, List<ProductBean> list, HomepagePresenter homePagePresenter) {
@@ -49,13 +49,17 @@ public class HotProductGridViewAdapter extends BaseAdapter<ProductBean> {
             convertView.setTag(itemCache);
         }
         ItemCache itemCache = (ItemCache) convertView.getTag();
-        ProductBean productBean = list.get(position);
+        final ProductBean productBean = list.get(position);
         ImageLoaderUtils.display(context, itemCache.ivImage, productBean.getImage(), R.drawable.product_default_icon, R.drawable.product_default_icon);
         itemCache.tvName.setText(productBean.getName());
         itemCache.tvNumber.setText("已售" + productBean.getSales_volume() + "件");
         itemCache.tvCurrentPrice.setText("¥" + productBean.getPrice());
         itemCache.tvOriginalPrice.setText("¥" + productBean.getOld_price());
         itemCache.tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        if (productBean.getStock_volume() > 0)
+            itemCache.ivAdd.setSelected(true);
+        else
+            itemCache.ivAdd.setSelected(false);
         itemCache.ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,14 +67,12 @@ public class HotProductGridViewAdapter extends BaseAdapter<ProductBean> {
                     context.startActivity(new Intent(context, LoginActivity.class));
                     return;
                 }
-                homePagePresenter.addShoppingCart(list.get(position).getId());
+                if (productBean.getStock_volume() > 0)
+                    homePagePresenter.addShoppingCart(list.get(position).getId());
+                else
+                    Toast.makeText(context, "该产品暂时缺货啦\n请联系客服订货", Toast.LENGTH_SHORT).show();
             }
         });
-        if (productBean.getStock_volume() > 0)
-            itemCache.ivAdd.setClickable(true);
-        else
-            itemCache.ivAdd.setClickable(false);
-        oldPosition = position;
         return convertView;
     }
 

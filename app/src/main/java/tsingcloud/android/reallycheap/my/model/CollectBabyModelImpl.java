@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import tsingcloud.android.api.Api;
+import tsingcloud.android.core.callback.ResultCallback;
 import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.interfaces.OnSetListTotalPagesListener;
+import tsingcloud.android.core.okhttp.OkHttpUtils;
 import tsingcloud.android.model.bean.ApiResponseBean;
 import tsingcloud.android.model.bean.CollectBabyBean;
-import tsingcloud.android.core.okhttp.OkHttpUtils;
 
 /**
  * Created by admin on 2016/4/29.
@@ -17,13 +18,15 @@ import tsingcloud.android.core.okhttp.OkHttpUtils;
 public class CollectBabyModelImpl implements CollectBabyModel {
     @Override
     public void getCollectBabyList(Map<String, String> map, final OnNSURLRequestListener<List<CollectBabyBean>> listener, final OnSetListTotalPagesListener totalPagesListener, String tag) {
-        OkHttpUtils.get(Api.COLLECT_BABY, new OkHttpUtils.ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
+        OkHttpUtils.get(Api.COLLECT_BABY, new ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
             @Override
             public void onSuccess(ApiResponseBean<List<CollectBabyBean>> response) {
                 if (response.isSuccess()) {
                     listener.onSuccess(response.getObjList());
                     totalPagesListener.setTotalPages(response.getTotal_pages());
-                } else
+                } else if (response.isTokenFailure())
+                    listener.onTokenFailure();
+                else
                     listener.onFailure(response.getErrmsg());
             }
 
@@ -37,12 +40,14 @@ public class CollectBabyModelImpl implements CollectBabyModel {
 
     @Override
     public void deleteCollectBaby(Map<String, String> map, final OnNSURLRequestListener<String> listener, String tag) {
-        OkHttpUtils.delete(Api.COLLECT_BABY, new OkHttpUtils.ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
+        OkHttpUtils.delete(Api.COLLECT_BABY, new ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
             @Override
             public void onSuccess(ApiResponseBean<List<CollectBabyBean>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccess())
                     listener.onSuccess(response.getErrmsg());
-                } else
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
+                else
                     listener.onFailure(response.getErrmsg());
             }
 
@@ -55,12 +60,14 @@ public class CollectBabyModelImpl implements CollectBabyModel {
 
     @Override
     public void clearCollectBaby(Map<String, String> map, final OnNSURLRequestListener<String> listener, String tag) {
-        OkHttpUtils.get(Api.DELETE_ALL_COLLECT_BABY, new OkHttpUtils.ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
+        OkHttpUtils.get(Api.DELETE_ALL_COLLECT_BABY, new ResultCallback<ApiResponseBean<List<CollectBabyBean>>>() {
             @Override
             public void onSuccess(ApiResponseBean<List<CollectBabyBean>> response) {
-                if (response.isSuccess()) {
+                if (response.isSuccess())
                     listener.onSuccess(response.getErrmsg());
-                } else
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
+                else
                     listener.onFailure(response.getErrmsg());
             }
 

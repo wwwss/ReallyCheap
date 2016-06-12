@@ -17,4 +17,6 @@ public interface BaseView {
     String getShopId();
 
     String getTAG();
+
+    void TokenFailure();
 }

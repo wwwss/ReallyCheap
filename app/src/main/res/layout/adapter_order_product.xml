@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingLeft="10dp">
 
     <ImageView
         android:id="@+id/productImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:contentDescription="@string/app_name"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:paddingTop="5dp"
         android:orientation="vertical"
         android:paddingLeft="@dimen/margin_general"
         android:weightSum="3">
@@ -27,7 +29,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:textColor="@color/text_color_grey"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_normal_min" />
 
         <TextView
@@ -36,7 +38,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:textColor="@color/text_color_grey"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_small" />
 
         <LinearLayout
@@ -60,7 +62,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_general_min"
                 android:gravity="center_vertical"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_min" />
         </LinearLayout>
 

@@ -37,7 +37,7 @@
                     android:hint="@string/nickname_edit_hint"
                     android:paddingLeft="23dp"
                     android:singleLine="true"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textColorHint="@color/text_color_dark"
                     android:textSize="@dimen/text_size_small" />
 

@@ -1,5 +1,6 @@
 package tsingcloud.android.reallycheap.my.widgets.activity;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -64,6 +65,7 @@ public class LoginActivity extends BaseActivity implements LoginView, TextWatche
                 loginPresenter.login();
                 break;
             case R.id.protocol:
+                startActivity(new Intent(this,XieYiActivity.class));
                 break;
 
 

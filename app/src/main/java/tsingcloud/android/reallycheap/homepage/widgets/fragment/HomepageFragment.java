@@ -1,13 +1,11 @@
 package tsingcloud.android.reallycheap.homepage.widgets.fragment;
 
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +22,9 @@ import com.amap.api.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 import tsingcloud.android.core.cache.LocalCache;
 import tsingcloud.android.core.interfaces.OnTabListener;
 import tsingcloud.android.core.utils.LogUtils;
@@ -39,7 +40,7 @@ import tsingcloud.android.reallycheap.homepage.widgets.activity.SearchActivity;
 import tsingcloud.android.reallycheap.homepage.widgets.activity.SelectStoreActivity;
 import tsingcloud.android.reallycheap.homepage.widgets.adapter.HotClassifyAdapter;
 import tsingcloud.android.reallycheap.homepage.widgets.adapter.HotProductListViewAdapter;
-import tsingcloud.android.reallycheap.utils.ListViewUitls;
+import tsingcloud.android.reallycheap.utils.ListViewUtils;
 import tsingcloud.android.reallycheap.utils.NetUtils;
 import tsingcloud.android.reallycheap.widgets.view.SAGridView;
 import tsingcloud.android.reallycheap.widgets.view.SlideShowView;
@@ -48,7 +49,8 @@ import tsingcloud.android.reallycheap.widgets.view.SlideShowView;
  * Created by admin on 2016/3/16.
  * 首页
  */
-public class HomepageFragment extends BaseFragment implements HomepageView, View.OnClickListener, AdapterView.OnItemClickListener {
+public class HomepageFragment extends BaseFragment implements HomepageView, View.OnClickListener,
+        AdapterView.OnItemClickListener {
 
     private static final int SELECT_STORE = 0;
     private HomepagePresenter homepagePresenter;
@@ -63,8 +65,7 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
     private List<HotClassifyBean> hotClassifyBeanList;
     private HotProductListViewAdapter listViewAdapter;
     private OnTabListener onTabListener;
-    private LatLng startLatlng = null;
-    private int LOCATION = 0;
+    private LatLng startLatLng = null;
     private View reloadView;
 
     public void setOnTabListener(OnTabListener onTabListener) {
@@ -72,7 +73,8 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_homepage, container, false);
     }
 
@@ -93,7 +95,8 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
         saGridView.setAdapter(adapter);
         saGridView.setOnItemClickListener(this);
         hotClassifyBeanList = new ArrayList<>();
-        listViewAdapter = new HotProductListViewAdapter(context, hotClassifyBeanList, homepagePresenter);
+        listViewAdapter = new HotProductListViewAdapter(context, this, hotClassifyBeanList,
+                homepagePresenter);
         listView.setAdapter(listViewAdapter);
     }
 
@@ -103,47 +106,32 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
             showReloadView();
             return;
         }
-        //版本判断
         if (Build.VERSION.SDK_INT >= 23) {
-            //减少是否拥有权限
-            int checkCallPhonePermission = ContextCompat.checkSelfPermission(context.getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION);
-            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
-                //弹出对话框接收权限
-                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION);
-                return;
-            } else {
-                showDialog("正在获取位置信息...");
-                homepagePresenter.getLocation(context);
-            }
+            PermissionGen.with(HomepageFragment.this)
+                    .addRequestCode(100)
+                    .permissions(Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                    .request();
         } else {
-            showDialog("正在获取位置信息...");
-            homepagePresenter.getLocation(context);
+            openLocation();
+//            showDialog("正在获取位置信息...");
+//            homepagePresenter.getLocation(context);
         }
+
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            showDialog("正在获取位置信息...");
-            homepagePresenter.getLocation(context);
-            //TODO:已授权
-        } else {
-            //TODO:用户拒绝
-        }
-    }
 
     @Override
     public void setShopsData(List<ShopBean> shopBeans) {
-        if (startLatlng == null && shopBeans == null)
+        if (startLatLng == null && shopBeans == null)
             return;
         int minDistanceIndex = 0;
         double oldDistance = Double.MAX_VALUE;
         for (int i = 0; i < shopBeans.size(); i++) {
             ShopBean shopBean = shopBeans.get(i);
             // 计算量坐标点距离
-            LatLng endLatlng = new LatLng(shopBean.getLat(), shopBean.getLng());
-            double newDistance = AMapUtils.calculateLineDistance(startLatlng, endLatlng);
+            LatLng endLatLng = new LatLng(shopBean.getLat(), shopBean.getLng());
+            double newDistance = AMapUtils.calculateLineDistance(startLatLng, endLatLng);
             shopBean.setDistance(newDistance);
             if (newDistance < oldDistance) {
                 minDistanceIndex = i;
@@ -151,9 +139,11 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
             }
         }
         tvShopName.setText(shopBeans.get(minDistanceIndex).getName());
-        String shopId = shopBeans.get(minDistanceIndex).getId();
-        LocalCache.get(context).put("shopId", shopId);
-        homepagePresenter.getHomepageData(shopId);
+        ShopBean shopBean = shopBeans.get(minDistanceIndex);
+        LocalCache.get(context).put("shopBean", shopBean);
+//        LocalCache.get(context).put("shopId", shopId);
+//        LocalCache.get(context).put("range",range);
+        homepagePresenter.getHomepageData(shopBean.getId());
     }
 
     @Override
@@ -184,8 +174,8 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
                     listView.addFooterView(imageView);
                     ivUpward.setVisibility(View.VISIBLE);
                     hideReloadView();
-                    ListViewUitls.setListViewHeightBasedOnChildren(listView);
                 }
+                ListViewUtils.setListViewHeightBasedOnChildren(listView);
             } else {
                 showReloadView();
             }
@@ -224,7 +214,7 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
             startActivityForResult(new Intent(context, SelectStoreActivity.class), SELECT_STORE);
             return;
         }
-        startLatlng = new LatLng(lat, lng);
+        startLatLng = new LatLng(lat, lng);
         homepagePresenter.getShopsData();
         LogUtils.d("定位结束", "经度----" + lat + "纬度----" + lng);
     }
@@ -270,12 +260,51 @@ public class HomepageFragment extends BaseFragment implements HomepageView, View
             case SELECT_STORE:
                 ShopBean shopBean = (ShopBean) data.getSerializableExtra("shopBean");
                 if (shopBean == null) return;
-                if (shopBean.getId().equals(getShopId())) return;
-                LocalCache.get(context).put("shopId", shopBean.getId());
+                //  if (shopBean.getId().equals(getShopId())) return;
+                LocalCache.get(context).put("shopBean", shopBean);
                 tvShopName.setText(shopBean.getName());
                 homepagePresenter.getHomepageData(shopBean.getId());
                 onTabListener.onTabRefresh(1, null);
                 break;
+            case HotProductListViewAdapter.PRODUCT_DETAILS:
+                onTabListener.onTabSwitch(2, null);
+                break;
         }
     }
+
+    @PermissionSuccess(requestCode = 100)
+    public void openLocation() {
+        LogUtils.d(TAG, "=============================");
+        showDialog("正在获取位置信息...");
+        homepagePresenter.getLocation(context);
+    }
+
+    @PermissionFail(requestCode = 100)
+    public void failLocation() {
+        LogUtils.d(TAG, "------------------------------");
+        showToast("权限请求被拒绝");
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+//        //版本判断
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            //减少是否拥有权限
+//            int checkCallPhonePermission = ContextCompat.checkSelfPermission(context.getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION);
+//            if (checkCallPhonePermission != PackageManager.PERMISSION_GRANTED) {
+//                //弹出对话框接收权限
+//                ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION);
+//                return;
+//            } else {
+//                showDialog("正在获取位置信息...");
+//                homepagePresenter.getLocation(context);
+//            }
+//        } else {
+//            showDialog("正在获取位置信息...");
+//            homepagePresenter.getLocation(context);
+//        }
 }

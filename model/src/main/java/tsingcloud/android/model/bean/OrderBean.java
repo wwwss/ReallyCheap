@@ -15,6 +15,8 @@ public class OrderBean extends BaseBean {
 
     private String shop_name;
 
+    private String shop_phone;
+
     private String order_no;
 
     private String state;
@@ -39,15 +41,17 @@ public class OrderBean extends BaseBean {
 
     private List<ProductBean> products;
 
-    private String products_price;
+    private double products_price;
 
-    private String total_price;
+    private double total_price;
 
-    private String freight;
+    private double freight;
 
     private int order_type;
 
     private int expiration_time;
+
+    private String remarks;
 
     public int getExpiration_time() {
         return expiration_time;
@@ -153,27 +157,27 @@ public class OrderBean extends BaseBean {
         this.products = products;
     }
 
-    public String getTotal_price() {
+    public double getTotal_price() {
         return total_price;
     }
 
-    public void setTotal_price(String total_price) {
+    public void setTotal_price(double total_price) {
         this.total_price = total_price;
     }
 
-    public String getFreight() {
+    public double getFreight() {
         return freight;
     }
 
-    public void setFreight(String freight) {
+    public void setFreight(double freight) {
         this.freight = freight;
     }
 
-    public String getProducts_price() {
+    public double getProducts_price() {
         return products_price;
     }
 
-    public void setProducts_price(String products_price) {
+    public void setProducts_price(double products_price) {
         this.products_price = products_price;
     }
 
@@ -207,5 +211,21 @@ public class OrderBean extends BaseBean {
 
     public void setShop_id(String shop_id) {
         this.shop_id = shop_id;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getShop_phone() {
+        return shop_phone;
+    }
+
+    public void setShop_phone(String shop_phone) {
+        this.shop_phone = shop_phone;
     }
 }

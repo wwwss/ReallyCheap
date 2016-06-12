@@ -15,7 +15,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:fadingEdge="none"
         android:scrollbars="none">
 
@@ -53,12 +54,12 @@
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/location_icon"
                     android:gravity="center_vertical"
                     android:minHeight="25dp"
-                    android:layout_toRightOf="@+id/location_icon"
-                    android:singleLine="true"
                     android:paddingLeft="10dp"
-                    android:textColor="@color/text_color_grey"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_small" />
 
                 <TextView
@@ -66,11 +67,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/name"
+                    android:layout_toRightOf="@+id/location_icon"
                     android:gravity="center_vertical"
                     android:minHeight="25dp"
                     android:paddingLeft="10dp"
-                    android:layout_toRightOf="@+id/location_icon"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_small" />
             </RelativeLayout>
 
@@ -86,7 +87,7 @@
                 android:gravity="center_vertical"
                 android:minHeight="25dp"
                 android:paddingLeft="10dp"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_small" />
 
 
@@ -106,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:minHeight="45dp"
+                android:minHeight="25dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -117,14 +118,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/total_price"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
 
                 <TextView
                     android:id="@+id/productsPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
 
@@ -135,7 +136,6 @@
                 android:minHeight="25dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:visibility="gone"
                 android:paddingRight="10dp">
 
 
@@ -144,14 +144,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/freight"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
 
                 <TextView
                     android:id="@+id/freight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
 
@@ -162,7 +162,6 @@
                 android:minHeight="25dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
-                android:visibility="gone"
                 android:paddingRight="10dp">
 
 
@@ -170,16 +169,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/cope_with"
-                    android:visibility="gone"
-                    android:textColor="@color/text_color_grey"
+                    android:text="@string/totals"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
 
                 <TextView
                     android:id="@+id/copeWith"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
 
@@ -195,7 +193,7 @@
                 android:gravity="center_vertical"
                 android:minHeight="25dp"
                 android:paddingLeft="10dp"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_min" />
 
             <TextView
@@ -205,7 +203,7 @@
                 android:gravity="center_vertical"
                 android:minHeight="25dp"
                 android:paddingLeft="10dp"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_min" />
 
             <TextView
@@ -215,7 +213,17 @@
                 android:gravity="center_vertical"
                 android:minHeight="25dp"
                 android:paddingLeft="10dp"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
+                android:textSize="@dimen/text_size_min" />
+
+            <TextView
+                android:id="@+id/remarks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="25dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_min" />
 
             <TextView
@@ -225,9 +233,19 @@
                 android:minHeight="25dp"
                 android:paddingLeft="10dp"
                 android:text="@string/cancel_order_hint"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_min" />
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/callPhone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:text="@string/call_phone"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_normal" />
 
 </LinearLayout>

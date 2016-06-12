@@ -19,10 +19,10 @@ import tsingcloud.android.reallycheap.my.presenter.MyOrderPresenter;
 import tsingcloud.android.reallycheap.my.widgets.activity.OrderDetailsActivity;
 import tsingcloud.android.reallycheap.shoppingcart.widgets.activity.ConfirmOrderActivity;
 import tsingcloud.android.reallycheap.shoppingcart.widgets.adapter.OrderProductAdapter;
-import tsingcloud.android.reallycheap.utils.ListViewUitls;
+import tsingcloud.android.reallycheap.utils.ListViewUtils;
 import tsingcloud.android.reallycheap.utils.TimeUitls;
 import tsingcloud.android.reallycheap.widgets.adapter.BaseAdapter;
-import tsingcloud.android.reallycheap.widgets.view.AlertDialog;
+import tsingcloud.android.reallycheap.widgets.view.CustomAlertDialog;
 
 /**
  * Created by admin on 2016/4/17.
@@ -113,15 +113,18 @@ public class MyOrderAdapter extends BaseAdapter<OrderBean> {
                 break;
         }
         itemCache.tvProductNum.setText("共计" + orderBean.getPro_count() + "件产品");
-        itemCache.tvTotalPrice.setText("合计：¥" + orderBean.getTotal_price());
+        if (orderBean.getFreight() > 0)
+            itemCache.tvTotalPrice.setText("合计：¥" + (orderBean.getTotal_price() + orderBean.getFreight()) + "（包含运费¥" + orderBean.getFreight() + "）");
+        else
+            itemCache.tvTotalPrice.setText("合计：¥" + orderBean.getTotal_price());
         adapter = new OrderProductAdapter(context, orderBean.getProducts());
         itemCache.listView.setAdapter(adapter);
-        ListViewUitls.setListViewHeightBasedOnChildren(itemCache.listView);
+        ListViewUtils.setListViewHeightBasedOnChildren(itemCache.listView);
         itemCache.tvOperation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ("立即支付".equals(itemCache.tvOperation.getText().toString())) {
-                    final AlertDialog alertDialog = new AlertDialog(context).builder();
+                    final CustomAlertDialog alertDialog = new CustomAlertDialog(context).builder();
                     alertDialog.setTitle("您是否立即支付")
                             .setPositiveButton("是", new View.OnClickListener() {
                                 @Override
@@ -137,7 +140,7 @@ public class MyOrderAdapter extends BaseAdapter<OrderBean> {
                     });
                     alertDialog.show();
                 } else if ("确认收货".equals(itemCache.tvOperation.getText().toString())) {
-                    final AlertDialog alertDialog = new AlertDialog(context).builder();
+                    final CustomAlertDialog alertDialog = new CustomAlertDialog(context).builder();
                     alertDialog.setTitle("您是否确认收货")
                             .setPositiveButton("是", new View.OnClickListener() {
                                 @Override
@@ -153,7 +156,7 @@ public class MyOrderAdapter extends BaseAdapter<OrderBean> {
                     });
                     alertDialog.show();
                 } else if ("再次购买".equals(itemCache.tvOperation.getText().toString())) {
-                    final AlertDialog alertDialog = new AlertDialog(context).builder();
+                    final CustomAlertDialog alertDialog = new CustomAlertDialog(context).builder();
                     alertDialog.setTitle("您是否再次购买")
                             .setPositiveButton("是", new View.OnClickListener() {
                                 @Override

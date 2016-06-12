@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.interfaces.OnSetListTotalPagesListener;
 import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.model.bean.OrderBean;
@@ -45,17 +44,11 @@ public class MyOrderPresenter extends BasePresenter {
         map.put("state", myOrderView.getOrderStatus() + "");
         map.put("page_num", pageNum + "");
         loadingDialog.show();
-        myOrderModel.getOrderList(map, new OnNSURLRequestListener<List<OrderBean>>() {
+        myOrderModel.getOrderList(map, new AbstractOnNSURLRequestListener<List<OrderBean>>() {
             @Override
             public void onSuccess(List<OrderBean> response) {
                 loadingDialog.dismiss();
                 myOrderView.refreshOrderListCompleted(response);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                loadingDialog.dismiss();
-                myOrderView.showToast(msg);
             }
         }, new OnSetListTotalPagesListener() {
             @Override
@@ -73,7 +66,7 @@ public class MyOrderPresenter extends BasePresenter {
         map.put("token", myOrderView.getToken());
         map.put("order_id", orderId);
         loadingDialog.show();
-        myOrderModel.getPayInfo(map, new OnNSURLRequestListener<OrderInfoBean>() {
+        myOrderModel.getPayInfo(map, new AbstractOnNSURLRequestListener<OrderInfoBean>() {
             @Override
             public void onSuccess(final OrderInfoBean response) {
                 loadingDialog.dismiss();
@@ -95,12 +88,6 @@ public class MyOrderPresenter extends BasePresenter {
                     }
                 }).start();
             }
-
-            @Override
-            public void onFailure(String msg) {
-                loadingDialog.dismiss();
-                myOrderView.showToast(msg);
-            }
         }, myOrderView.getTAG());
 
     }
@@ -112,16 +99,11 @@ public class MyOrderPresenter extends BasePresenter {
         map.put("token", myOrderView.getToken());
         map.put("id", orderId);
         //map.put("shop_id", shopId);
-        myOrderModel.confirmReceipt(map, new OnNSURLRequestListener<String>() {
+        myOrderModel.confirmReceipt(map, new AbstractOnNSURLRequestListener<String>() {
             @Override
             public void onSuccess(String response) {
                 myOrderView.showToast(response);
                 myOrderView.confirmReceiptComplete();
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                myOrderView.showToast(msg);
             }
         }, myOrderView.getTAG());
 

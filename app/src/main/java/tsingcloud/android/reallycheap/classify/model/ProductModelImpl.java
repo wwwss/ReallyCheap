@@ -3,23 +3,23 @@ package tsingcloud.android.reallycheap.classify.model;
 import java.util.List;
 import java.util.Map;
 
-import tsingcloud.android.api.Api;
 import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.interfaces.OnSetListTotalPagesListener;
+import tsingcloud.android.core.okhttp.OkHttpUtils;
 import tsingcloud.android.model.bean.ApiResponseBean;
 import tsingcloud.android.model.bean.ProductBean;
-import tsingcloud.android.core.okhttp.OkHttpUtils;
+import tsingcloud.android.reallycheap.model.BaseModelImpl;
 
 /**
  * Created by admin on 2016/3/24.
  * 产品数据实现类
  */
-public class ProductModelImpl implements ProductModel {
+public class ProductModelImpl extends BaseModelImpl implements ProductModel {
     private final String TAG = getClass().getName();
 
     @Override
-    public void getProductList(String url, Map<String, String> map, final OnNSURLRequestListener<List<ProductBean>> listener, final OnSetListTotalPagesListener totalPagesListener,String tag) {
-        OkHttpUtils.get(url, new OkHttpUtils.ResultCallback<ApiResponseBean<List<ProductBean>>>() {
+    public void getProductList(String url, Map<String, String> map, OnNSURLRequestListener<List<ProductBean>> listener, final OnSetListTotalPagesListener totalPagesListener, String tag) {
+        OkHttpUtils.get(url, new AbstractResultCallback<ApiResponseBean<List<ProductBean>>>(listener) {
 
             @Override
             public void onSuccess(ApiResponseBean<List<ProductBean>> response) {
@@ -29,12 +29,7 @@ public class ProductModelImpl implements ProductModel {
                 } else
                     listener.onFailure(response.getErrmsg());
             }
-
-            @Override
-            public void onFailure(Exception e) {
-                listener.onFailure("获取产品列表失败");
-            }
-        }, map,tag);
+        }, map, tag);
 
     }
 

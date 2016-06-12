@@ -2,6 +2,7 @@ package tsingcloud.android.core.presenter;
 
 import android.app.Dialog;
 
+import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.okhttp.OkHttpUtils;
 import tsingcloud.android.core.view.BaseView;
 
@@ -11,8 +12,10 @@ import tsingcloud.android.core.view.BaseView;
 public class BasePresenter {
 
     public Dialog loadingDialog;
+    private BaseView baseView;
 
     public BasePresenter(BaseView baseView) {
+        this.baseView = baseView;
         loadingDialog = baseView.getDialog();
     }
 
@@ -25,5 +28,24 @@ public class BasePresenter {
         OkHttpUtils.cancelRequest(TAG);
     }
 
+
+    public abstract class AbstractOnNSURLRequestListener<T> implements OnNSURLRequestListener<T> {
+        @Override
+        public void onSuccess(T response) {
+        }
+        @Override
+        public void onFailure(String msg) {
+            if (loadingDialog != null && loadingDialog.isShowing())
+                loadingDialog.dismiss();
+            baseView.showToast(msg);
+        }
+
+        @Override
+        public void onTokenFailure() {
+            if (loadingDialog != null && loadingDialog.isShowing())
+                loadingDialog.dismiss();
+            baseView.TokenFailure();
+        }
+    }
 
 }

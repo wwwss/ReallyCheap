@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.model.bean.UserBean;
 import tsingcloud.android.reallycheap.my.model.MyModel;
@@ -30,20 +29,14 @@ public class MyPresenter extends BasePresenter {
     public void getUserInfo() {
         if (TextUtils.isEmpty(myView.getToken()) || TextUtils.isEmpty(myView.getShopId()))
             return;
-        loadingDialog.show();
+//        loadingDialog.show();
         Map<String, String> map = new HashMap<>();
         map.put("shop_id", myView.getShopId());
-        myModel.getUserIfo(myView.getToken(), map, new OnNSURLRequestListener<UserBean>() {
+        myModel.getUserIfo(myView.getToken(), map, new AbstractOnNSURLRequestListener<UserBean>() {
             @Override
             public void onSuccess(UserBean response) {
-                loadingDialog.dismiss();
+                //loadingDialog.dismiss();
                 myView.setUserInfo(response);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                loadingDialog.dismiss();
-                myView.showToast(msg);
             }
         }, myView.getTAG());
     }

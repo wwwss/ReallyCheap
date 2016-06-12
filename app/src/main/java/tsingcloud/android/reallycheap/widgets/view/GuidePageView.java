@@ -32,10 +32,10 @@ public class GuidePageView extends View {
 
                 @Override
                 public void onClick(View v) {
+                    LocalCache.get(context).put("isFirst", "isFirst");
                     Intent intent = new Intent(context, WelcomeActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-                    LocalCache.get(context).put("isFirst", "isFirst");
                     activity.finish();
 
 

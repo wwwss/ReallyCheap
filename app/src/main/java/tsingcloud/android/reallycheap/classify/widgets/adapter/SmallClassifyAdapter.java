@@ -2,6 +2,7 @@ package tsingcloud.android.reallycheap.classify.widgets.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +25,12 @@ import tsingcloud.android.reallycheap.widgets.view.SAGridView;
  */
 public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyBean> {
     private DetailClassifyAdapter adapter;
+    public static final int PRODUCT =1001 ;
+    private Fragment fragment;
 
-    public SmallClassifyAdapter(Context context, List<SmallClassifyBean> list) {
+    public SmallClassifyAdapter(Context context,Fragment fragment, List<SmallClassifyBean> list) {
         super(context, list);
+        this.fragment=fragment;
     }
 
     @Override
@@ -51,7 +55,7 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyBean> {
                 Intent intent = new Intent(context, ProductActivity.class);
                 intent.putExtra("type", 1);
                 intent.putExtra("productBean", productBean);
-                context.startActivity(intent);
+               fragment.startActivityForResult(intent,PRODUCT);
             }
         });
         itemCache.ivEnter.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +64,7 @@ public class SmallClassifyAdapter extends BaseAdapter<SmallClassifyBean> {
                 Intent intent = new Intent(context, ProductActivity.class);
                 intent.putExtra("smallClassifyBean", smallClassifyBean);
                 intent.putExtra("type", 0);
-                context.startActivity(intent);
+                fragment.startActivityForResult(intent,PRODUCT);
             }
         });
         return convertView;

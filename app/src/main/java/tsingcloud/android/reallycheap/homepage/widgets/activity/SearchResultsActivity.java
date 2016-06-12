@@ -1,12 +1,14 @@
 package tsingcloud.android.reallycheap.homepage.widgets.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import java.util.List;
 import tsingcloud.android.core.widgets.activity.BaseActivity;
 import tsingcloud.android.model.bean.ProductBean;
 import tsingcloud.android.reallycheap.R;
+import tsingcloud.android.reallycheap.classify.widgets.activity.ProductDetailsActivity;
 import tsingcloud.android.reallycheap.classify.widgets.adapter.ProductAdapter;
 import tsingcloud.android.reallycheap.homepage.presenter.SearchResultsPresenter;
 import tsingcloud.android.reallycheap.homepage.view.SearchResultsView;
@@ -25,8 +28,9 @@ import tsingcloud.android.reallycheap.homepage.view.SearchResultsView;
  * Created by admin on 2016/3/24.
  * 搜索结果
  */
-public class SearchResultsActivity extends BaseActivity implements TextView.OnEditorActionListener, SearchResultsView, View.OnClickListener, AbsListView.OnScrollListener {
+public class SearchResultsActivity extends BaseActivity implements TextView.OnEditorActionListener, SearchResultsView, View.OnClickListener, AbsListView.OnScrollListener, AdapterView.OnItemClickListener {
 
+    private static final int PRODUCT_DETAILS = 1001;
     private EditText etSearchInput;
     private SearchResultsPresenter searchResultsPresenter;
     private List<ProductBean> productBeanList;
@@ -53,6 +57,7 @@ public class SearchResultsActivity extends BaseActivity implements TextView.OnEd
         productBeanList = new ArrayList<>();
         adapter = new ProductAdapter(this, productBeanList, searchResultsPresenter, ProductAdapter.PresenterEnum.SEARCH);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -140,5 +145,24 @@ public class SearchResultsActivity extends BaseActivity implements TextView.OnEd
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(this, ProductDetailsActivity.class);
+        intent.putExtra("id", productBeanList.get(position).getId());
+        startActivityForResult(intent, PRODUCT_DETAILS);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK)
+            return;
+        switch (requestCode) {
+            case PRODUCT_DETAILS:
+                setResult(RESULT_OK);
+                finish();
+                break;
+        }
     }
 }

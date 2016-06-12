@@ -4,30 +4,32 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <TextView
-        android:layout_width="40dp"
-        android:layout_height="15dp"
-        android:background="@drawable/homepage_product_tag_bg"
-        android:text="特价"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_min_min"/>
+
     <ImageView
         android:id="@+id/productImage"
         android:layout_width="165dp"
         android:layout_height="165dp"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:contentDescription="@string/app_name"
-        android:scaleType="fitXY" />
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/homepage_product_tag_bg"
+        android:gravity="center"
+        android:text="特价"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_min_min" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_below="@+id/productImage"
         android:layout_width="match_parent"
         android:layout_height="20dp"
+        android:layout_below="@+id/productImage"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -55,21 +57,21 @@
     </LinearLayout>
 
     <TextView
-        android:layout_below="@+id/linearLayout"
         android:id="@+id/productName"
         android:layout_width="match_parent"
         android:layout_height="22dp"
+        android:layout_below="@+id/linearLayout"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:textColor="@color/text_color_grey"
-        android:textStyle="bold"
-        android:textSize="@dimen/text_size_small" />
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_small"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_below="@+id/productName"
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:layout_below="@+id/productName"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -86,20 +88,20 @@
         <TextView
             android:id="@+id/productOriginalPrice"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/margin_small"
-            android:textColor="@color/text_color_grey"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_min_min" />
 
         <ImageView
             android:id="@+id/add"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:scaleType="centerCrop"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/homepage_add_shopping_cart_icon" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_shopping_cart_bg" />
 
     </LinearLayout>
 

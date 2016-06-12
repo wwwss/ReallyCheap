@@ -35,12 +35,12 @@ public interface ProductDetailsModel {
      */
     void cancelCollectionProduct(Map<String, String> map, OnNSURLRequestListener<String> listener, String tag);
 
-    /**
-     * 添加到购物车
-     * @param map
-     * @param listener
-     * @param tag
-     */
-    void addShoppingCart(Map<String, String> map, OnNSURLRequestListener<String> listener, String tag);
+//    /**
+//     * 添加到购物车
+//     * @param map
+//     * @param listener
+//     * @param tag
+//     */
+//    void addShoppingCart(Map<String, String> map, OnNSURLRequestListener<String> listener, String tag);
 
 }

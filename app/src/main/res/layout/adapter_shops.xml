@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:minHeight="25dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_small" />
 
     <TextView

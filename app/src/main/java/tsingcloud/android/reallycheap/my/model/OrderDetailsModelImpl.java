@@ -3,6 +3,7 @@ package tsingcloud.android.reallycheap.my.model;
 import java.util.Map;
 
 import tsingcloud.android.api.Api;
+import tsingcloud.android.core.callback.ResultCallback;
 import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.okhttp.OkHttpUtils;
 import tsingcloud.android.model.bean.ApiResponseBean;
@@ -15,11 +16,13 @@ import tsingcloud.android.model.bean.OrderBean;
 public class OrderDetailsModelImpl implements OrderDetailsModel {
     @Override
     public void getOrderDetailsData(String orderId, Map<String, String> map, final OnNSURLRequestListener<OrderBean> listener, String tag) {
-        OkHttpUtils.get(Api.ORDERS_DETAILS + orderId, new OkHttpUtils.ResultCallback<ApiResponseBean<OrderBean>>() {
+        OkHttpUtils.get(Api.ORDERS_DETAILS + orderId, new ResultCallback<ApiResponseBean<OrderBean>>() {
             @Override
             public void onSuccess(ApiResponseBean<OrderBean> response) {
                 if (response.isSuccess())
                     listener.onSuccess(response.getObj());
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
                 else
                     listener.onFailure(response.getErrmsg());
             }
@@ -34,11 +37,13 @@ public class OrderDetailsModelImpl implements OrderDetailsModel {
 
     @Override
     public void deleteOrder(Map<String, String> map, final OnNSURLRequestListener<String> listener, String tag) {
-        OkHttpUtils.delete(Api.ORDERS, new OkHttpUtils.ResultCallback<ApiResponseBean<String>>() {
+        OkHttpUtils.delete(Api.ORDERS, new ResultCallback<ApiResponseBean<String>>() {
             @Override
             public void onSuccess(ApiResponseBean<String> response) {
                 if (response.isSuccess())
                     listener.onSuccess(response.getErrmsg());
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
                 else
                     listener.onFailure(response.getErrmsg());
             }

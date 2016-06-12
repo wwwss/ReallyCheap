@@ -1,6 +1,8 @@
 package tsingcloud.android.reallycheap.utils;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -120,6 +122,23 @@ public class ToolsUtil {
         }
 
         return true;
+    }
+    /**
+     * 获取版本号的方法
+     *
+     * @return 当前应用的版本号 4
+     */
+    public static String getVersion(Context context) {
+        if (context==null) return "";
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            String version = info.versionName;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
 }

@@ -9,7 +9,6 @@ import com.amap.api.location.AMapLocationListener;
 
 import java.util.List;
 
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.utils.LogUtils;
 import tsingcloud.android.model.bean.ShopBean;
 import tsingcloud.android.reallycheap.homepage.model.SelectStoreModel;
@@ -64,15 +63,10 @@ public class SelectStorePresenter extends ProductBasePresenter implements AMapLo
      * 获取店名称
      */
     public void getShopsData() {
-        selectStoreModel.getShopsData(new OnNSURLRequestListener<List<ShopBean>>() {
+        selectStoreModel.getShopsData(new AbstractOnNSURLRequestListener<List<ShopBean>>() {
             @Override
             public void onSuccess(List<ShopBean> shopBeans) {
                 selectStoreView.setShopsData(shopBeans);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                selectStoreView.showToast(msg);
             }
         }, selectStoreView.getTAG());
     }

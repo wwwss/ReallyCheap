@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="shopping_cart_foot_view_bg">#d3d3d3</color>
-    <color name="app_primary_color">#ff5a1e</color>
     <color name="orange">#ff5a1e</color>
-    <color name="grey">#666666</color>
+    <color name="gray">#666666</color>
 </resources>

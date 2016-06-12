@@ -13,7 +13,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         android:minHeight="25dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_small" />
     <TextView
         android:id="@+id/expirationTime"
@@ -62,7 +62,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center_vertical"
         android:minHeight="25dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_small" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
         android:minHeight="25dp"
-        android:textColor="@color/text_color_grey"
+        android:textColor="@color/text_color_gray"
         android:textSize="@dimen/text_size_small" />
 
     <TextView

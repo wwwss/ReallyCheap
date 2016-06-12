@@ -6,7 +6,7 @@ import android.text.TextUtils;
  * Created by admin on 2016/4/5.
  * API请求响应实体类
  */
-public class ApiResponseBean<T> {
+public class ApiResponseBean<T> extends BaseBean{
 
     private String errcode;    // 返回码，0为成功
     private String errmsg;      // 返回信息
@@ -44,6 +44,12 @@ public class ApiResponseBean<T> {
     // 判断结果是否成功
     public boolean isSuccess() {
         return "0".equals(errcode);
+    }
+
+
+    // 判断结果是否成功
+    public boolean isTokenFailure() {
+        return "2".equals(errcode);
     }
 
     public T getObj() {

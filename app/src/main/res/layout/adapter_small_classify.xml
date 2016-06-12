@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_general_min"
             android:layout_weight="1"
-            android:textColor="@color/text_color_grey"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_normal" />
 
         <ImageView

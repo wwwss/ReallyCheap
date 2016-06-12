@@ -7,4 +7,5 @@ package tsingcloud.android.core.interfaces;
 public interface OnNSURLRequestListener<T> {
     void onSuccess(T response);
     void onFailure(String msg);
+    void onTokenFailure();
 }

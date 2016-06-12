@@ -118,7 +118,7 @@ public class SlideShowView extends FrameLayout implements MyViewPager.OnSingleTo
             else
                 view.setTag(R.id.tag_image_url, imageList.get(i).getImage());
             if (i == 0)// 给一个默认图
-                view.setBackgroundResource(R.drawable.banner_icon);
+                view.setBackgroundResource(R.drawable.banner_default_icon);
             view.setScaleType(ScaleType.FIT_XY);
             imageViewsList.add(view);
             ImageView dotView = new ImageView(context);

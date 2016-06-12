@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/product_details"
-            android:textColor="@color/text_color_grey"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_slightlybigger" />
 
         <ImageView
@@ -76,7 +76,7 @@
                 android:layout_height="49dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/margin_large"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -85,7 +85,7 @@
                 android:layout_height="49dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/margin_large"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_small" />
 
             <TextView
@@ -108,7 +108,7 @@
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/margin_large"
                 android:text="@string/product_recommendation"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_small" />
 
             <ListView
@@ -127,15 +127,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:background="@color/grey">
+        android:background="@color/gray">
 
         <TextView
+            android:id="@+id/sendPriceHint"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin_large"
-            android:text="@string/send_price_hint"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_normal" />
 

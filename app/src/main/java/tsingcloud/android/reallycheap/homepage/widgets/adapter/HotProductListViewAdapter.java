@@ -2,6 +2,7 @@ package tsingcloud.android.reallycheap.homepage.widgets.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +27,12 @@ public class HotProductListViewAdapter extends BaseAdapter<HotClassifyBean> {
 
     private HotProductGridViewAdapter adapter;
     private HomepagePresenter homePagePresenter;
+    private Fragment fragment;
+    public static final int PRODUCT_DETAILS =1001 ;
 
-    public HotProductListViewAdapter(Context context, List<HotClassifyBean> list, HomepagePresenter homePagePresenter) {
+    public HotProductListViewAdapter(Context context, Fragment fragment, List<HotClassifyBean> list, HomepagePresenter homePagePresenter) {
         super(context, list);
+        this.fragment=fragment;
         this.homePagePresenter = homePagePresenter;
     }
 
@@ -53,7 +57,7 @@ public class HotProductListViewAdapter extends BaseAdapter<HotClassifyBean> {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(context, ProductDetailsActivity.class);
                 intent.putExtra("id", hotClassifyBean.getList().get(position).getId());
-                context.startActivity(intent);
+                fragment.startActivityForResult(intent,PRODUCT_DETAILS);
             }
         });
         return convertView;

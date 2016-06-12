@@ -1,5 +1,6 @@
 package tsingcloud.android.reallycheap.widgets.activity;
 
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
@@ -24,11 +25,14 @@ public class GuidePageActivity extends BaseActivity {
 
     @Override
     protected void setUpContentView() {
-        //设置无标题
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //设置全屏
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //版本判断
+        if (Build.VERSION.SDK_INT >= 20) {
+            //设置无标题
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            //设置全屏
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         setContentView(R.layout.activity_guide_page);
     }
 

@@ -46,7 +46,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:text="@string/address_empty_hint"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_small" />
 
         </LinearLayout>

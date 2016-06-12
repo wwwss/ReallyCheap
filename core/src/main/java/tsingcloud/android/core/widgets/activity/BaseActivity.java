@@ -19,6 +19,7 @@ import tsingcloud.android.core.interfaces.TitleBarListener;
 import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.core.view.BaseView;
 import tsingcloud.android.core.widgets.TitleBar;
+import tsingcloud.android.model.bean.ShopBean;
 
 
 /**
@@ -156,14 +157,24 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
 
     @Override
     public void showToast(String msg) {
-        if ("登录已过期，请重新登录".equals(msg))
-            LocalCache.get(this).remove("token");
+//        if ("登录已过期，请重新登录".equals(msg))
+//            LocalCache.get(this).remove("token");
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
+    public void TokenFailure() {
+        LocalCache.get(this).remove("token");
+        Toast.makeText(this, "登录已过期，请重新登录", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public String getShopId() {
-        return LocalCache.get(this).getAsString("shopId");
+        ShopBean shopBean = (ShopBean) LocalCache.get(this).getAsObject("shopBean");
+        if (shopBean == null)
+            return null;
+        else
+            return shopBean.getId();
     }
 
     @Override
@@ -189,6 +200,19 @@ public abstract class BaseActivity extends AppCompatActivity implements TitleBar
         //basePresenter.cancelRequest(TAG);
         super.onDestroy();
     }
+
+
+
+//    @PermissionSuccess(requestCode = 100)
+//    protected void doSomething() {
+//
+//    }
+//
+//
+//    @PermissionFail(requestCode = 100)
+//    protected void doFailSomething(String msg) {
+//        showToast(msg);
+//    }
 
 
 }

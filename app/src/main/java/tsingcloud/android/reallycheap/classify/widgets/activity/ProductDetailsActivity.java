@@ -6,15 +6,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import tsingcloud.android.core.cache.LocalCache;
 import tsingcloud.android.core.widgets.activity.BaseActivity;
 import tsingcloud.android.model.bean.ProductBean;
+import tsingcloud.android.model.bean.ShopBean;
 import tsingcloud.android.reallycheap.R;
 import tsingcloud.android.reallycheap.classify.presenter.ProductDetailsPresenter;
 import tsingcloud.android.reallycheap.classify.view.ProductDetailsView;
 import tsingcloud.android.reallycheap.classify.widgets.adapter.ProductAdapter;
 import tsingcloud.android.reallycheap.my.widgets.activity.LoginActivity;
-import tsingcloud.android.reallycheap.widgets.activity.MainActivity;
 import tsingcloud.android.reallycheap.widgets.view.SlideShowView;
 
 /**
@@ -28,6 +30,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
     private TextView tvName;//名称
     private TextView tvSpec;//产品规格
     private TextView tvPrice;//产品现价
+    private TextView tvSendPriceHint;//起送价格提示
     private ListView listView;
     private ProductAdapter adapter;
     private ProductDetailsPresenter productDetailsPresenter;
@@ -47,6 +50,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         tvName = (TextView) findViewById(R.id.productName);
         tvSpec = (TextView) findViewById(R.id.productSpecification);
         tvPrice = (TextView) findViewById(R.id.productPrice);
+        tvSendPriceHint = (TextView) findViewById(R.id.sendPriceHint);
         listView = (ListView) findViewById(R.id.listView);
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.goShoppingCart).setOnClickListener(this);
@@ -60,6 +64,10 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         if (TextUtils.isEmpty(productId))
             return;
         productDetailsPresenter.getProductDetailsData(productId);
+        ShopBean shopBean = (ShopBean) LocalCache.get(this).getAsObject("shopBean");
+        if (shopBean != null)
+            tvSendPriceHint.setText("满" + shopBean.getSend_price() + "元免运费");
+
     }
 
     @Override
@@ -110,10 +118,11 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
                 finish();
                 break;
             case R.id.goShoppingCart:
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("type", 2);
-                startActivity(intent);
+//                Intent intent = new Intent(this, MainActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("type", 2);
+//                startActivity(intent);
+                setResult(RESULT_OK);
                 finish();
                 break;
             case R.id.collection:
@@ -131,8 +140,14 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
             case R.id.addShoppingCart:
                 if (TextUtils.isEmpty(getToken()))
                     startActivity(new Intent(this, LoginActivity.class));
-                else
-                    productDetailsPresenter.addShoppingCart(productId);
+                else {
+                    if (productBean.getStock_volume() > 0) {
+                        productDetailsPresenter.addShoppingCart(productId);
+                    } else
+                        Toast.makeText(this, "该产品暂时缺货啦\n请联系客服订货", Toast.LENGTH_SHORT).show();
+
+                }
+
                 break;
         }
 

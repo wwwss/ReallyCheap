@@ -3,13 +3,14 @@ package tsingcloud.android.reallycheap.homepage.presenter;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.iflytek.cloud.SpeechRecognizer;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tsingcloud.android.core.cache.LocalCache;
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
 import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.model.bean.HotSearchBean;
 import tsingcloud.android.reallycheap.homepage.model.SearchModel;
@@ -23,6 +24,8 @@ import tsingcloud.android.reallycheap.homepage.view.SearchView;
 public class SearchPresenter extends BasePresenter{
     private SearchView searchView;
     private SearchModel searchModel;
+    // 语音听写对象
+    private SpeechRecognizer speechRecognizer;
 
     public SearchPresenter(SearchView searchView) {
         super(searchView);
@@ -34,16 +37,11 @@ public class SearchPresenter extends BasePresenter{
      * 获取热门搜索
      */
     public void getHotSearchData() {
-        searchModel.getHotSearchData(new OnNSURLRequestListener<List<HotSearchBean>>() {
+        searchModel.getHotSearchData(new AbstractOnNSURLRequestListener<List<HotSearchBean>>() {
 
             @Override
             public void onSuccess(List<HotSearchBean> response) {
                 searchView.setHotSearchData(response);
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                searchView.showToast(msg);
             }
         }, searchView.getTAG());
 
@@ -65,28 +63,6 @@ public class SearchPresenter extends BasePresenter{
         searchView.setHistorySearchData(historySearchList);
     }
 
-//    public void search(String searchContent, int pageNum) {
-//        if (TextUtils.isEmpty(searchView.getShopId())) return;
-//        Map<String, String> map = new HashMap<>();
-//        map.put("shop_id", searchView.getShopId());
-//        map.put("page_num", pageNum + "");
-//        map.put("name_like", searchContent);
-//        searchModel.search(map, new OnNSURLRequestListener<List<ProductBean>>() {
-//            @Override
-//            public void onSuccess(List<ProductBean> productBeans) {
-//                searchView.searchComplete(productBeans);
-//            }
-//
-//            @Override
-//            public void onFailure(String msg) {
-//
-//            }
-//        }, new OnSetListTotalPagesListener() {
-//            @Override
-//            public void setTotalPages(int totalPages) {
-//                searchView.setTotalPages(totalPages);
-//            }
-//        },searchView.getTAG());
-//    }
+
 
 }

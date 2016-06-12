@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/margin_small"
     android:textSize="@dimen/text_size_small"
-    android:textColor="@color/text_color_grey"
+    android:textColor="@color/text_color_gray"
     android:gravity="center"
     android:background="@drawable/hot_search_item_bg"
     />

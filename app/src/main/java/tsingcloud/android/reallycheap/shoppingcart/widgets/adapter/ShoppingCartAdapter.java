@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +26,7 @@ import tsingcloud.android.reallycheap.R;
 import tsingcloud.android.reallycheap.shoppingcart.presenter.ShoppingCartPresenter;
 import tsingcloud.android.reallycheap.utils.ImageLoaderUtils;
 import tsingcloud.android.reallycheap.widgets.adapter.BaseAdapter;
+import tsingcloud.android.reallycheap.widgets.view.CustomAlertDialog;
 
 /**
  * Created by admin on 2016/3/28.
@@ -89,6 +92,8 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartBean> {
                 if (number > 1) {
                     number--;
                     shoppingCartPresenter.updateShopCartItemNumber(shoppingCartBean, number, position);
+                } else {
+                    delete(position);
                 }
             }
         });
@@ -99,6 +104,8 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartBean> {
                 if (number < productBean.getStock_volume()) {
                     number++;
                     shoppingCartPresenter.updateShopCartItemNumber(shoppingCartBean, number, position);
+                } else {
+                    Toast.makeText(context, "该产品暂时缺货啦\n请联系客服订货", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -112,6 +119,10 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartBean> {
         itemCache.ivIsSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (productBean.getStock_volume() <= 0) {
+                    Toast.makeText(context, "该产品暂时缺货啦\n请联系客服订货", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (shoppingCartBean.isSelected()) {
                     shoppingCartBean.setSelected(false);
                 } else {
@@ -233,5 +244,28 @@ public class ShoppingCartAdapter extends BaseAdapter<ShoppingCartBean> {
 
         }, 300);
 
+    }
+
+    private void delete(final int position) {
+        final CustomAlertDialog alertDialog = new CustomAlertDialog(context).builder();
+        alertDialog.setTitle("您确定要删除该商品吗？")
+                .setPositiveButton("是", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                        ShoppingCartBean shoppingCartBean = list.get(position);
+                        shoppingCartBean.setSelected(true);
+                        List<ShoppingCartBean> shoppingCartBeanList = new ArrayList<>();
+                        shoppingCartBeanList.add(shoppingCartBean);
+                        shoppingCartPresenter.deleteShoppingCartItem(shoppingCartBeanList);
+                    }
+                }).setNegativeButton("否", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
     }
 }

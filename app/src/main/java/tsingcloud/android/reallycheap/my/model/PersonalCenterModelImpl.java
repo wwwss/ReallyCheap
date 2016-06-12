@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tsingcloud.android.api.Api;
+import tsingcloud.android.core.callback.ResultCallback;
+import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
+import tsingcloud.android.core.okhttp.OkHttpUtils;
+import tsingcloud.android.core.utils.LogUtils;
 import tsingcloud.android.model.bean.ApiResponseBean;
 import tsingcloud.android.model.bean.UserBean;
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
-import tsingcloud.android.core.utils.LogUtils;
-import tsingcloud.android.core.okhttp.OkHttpUtils;
 
 /**
  * Created by admin on 2016/4/17.
@@ -23,12 +24,14 @@ public class PersonalCenterModelImpl implements PersonalCenterModel {
         Map<String, String> params = new HashMap<>();
         params.put(key, value);
         params.put("token", token);
-        OkHttpUtils.put(Api.UPDATE_USER_INFO, new OkHttpUtils.ResultCallback<ApiResponseBean<UserBean>>() {
+        OkHttpUtils.put(Api.UPDATE_USER_INFO, new ResultCallback<ApiResponseBean<UserBean>>() {
 
             @Override
             public void onSuccess(ApiResponseBean<UserBean> response) {
                 if (response.isSuccess())
                     listener.onSuccess(response.getObj());
+                else if (response.isTokenFailure())
+                    listener.onTokenFailure();
                 else
                     listener.onFailure(response.getErrmsg());
             }

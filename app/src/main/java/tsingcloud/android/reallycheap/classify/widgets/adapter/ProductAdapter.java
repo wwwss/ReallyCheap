@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -67,6 +68,10 @@ public class ProductAdapter extends BaseAdapter<ProductBean> implements View.OnC
         itemCache.tvOriginalPrice.setText("¥" + productBean.getOld_price());
         itemCache.tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         itemCache.ivAdd.setOnClickListener(this);
+        if (productBean.getStock_volume() > 0)
+            itemCache.ivAdd.setSelected(true);
+        else
+            itemCache.ivAdd.setSelected(false);
         return convertView;
     }
 
@@ -76,16 +81,21 @@ public class ProductAdapter extends BaseAdapter<ProductBean> implements View.OnC
             context.startActivity(new Intent(context, LoginActivity.class));
             return;
         }
-        switch (presenterEnum) {
-            case SEARCH:
-                if (searchResultsPresenter != null)
-                    searchResultsPresenter.addShoppingCart(productBean.getId());
-                break;
-            case PRODUCT_DETAILS:
-                if (productDetailsPresenter != null)
-                    productDetailsPresenter.addShoppingCart(productBean.getId());
-                break;
+        if (productBean.getStock_volume() > 0){
+            switch (presenterEnum) {
+                case SEARCH:
+                    if (searchResultsPresenter != null)
+                        searchResultsPresenter.addShoppingCart(productBean.getId());
+                    break;
+                case PRODUCT_DETAILS:
+                    if (productDetailsPresenter != null)
+                        productDetailsPresenter.addShoppingCart(productBean.getId());
+                    break;
+            }
         }
+        else
+            Toast.makeText(context, "该产品暂时缺货啦\n请联系客服订货", Toast.LENGTH_SHORT).show();
+
     }
 
     private class ItemCache {

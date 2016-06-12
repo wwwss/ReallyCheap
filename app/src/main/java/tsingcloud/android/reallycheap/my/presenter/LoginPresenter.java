@@ -3,7 +3,7 @@ package tsingcloud.android.reallycheap.my.presenter;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import tsingcloud.android.core.interfaces.OnNSURLRequestListener;
+import tsingcloud.android.core.presenter.BasePresenter;
 import tsingcloud.android.model.bean.UserBean;
 import tsingcloud.android.reallycheap.my.model.LoginModel;
 import tsingcloud.android.reallycheap.my.model.LoginModelImpl;
@@ -13,13 +13,14 @@ import tsingcloud.android.reallycheap.my.view.LoginView;
  * Created by admin on 2016/3/22.
  * 登录页面控制器
  */
-public class LoginPresenter {
+public class LoginPresenter extends BasePresenter{
 
     private LoginView loginView;
     private LoginModel loginModel;
     private int countdown = 120;//倒计时
 
     public LoginPresenter(LoginView loginView) {
+        super(loginView);
         this.loginView = loginView;
         loginModel = new LoginModelImpl();
     }
@@ -32,19 +33,13 @@ public class LoginPresenter {
             loginView.showToast("手机号码不能为空");
             return;
         }
-        loginModel.getYzm(loginView.getInputPhoneNumber(), new OnNSURLRequestListener<String>() {
+        loginModel.getYzm(loginView.getInputPhoneNumber(), new AbstractOnNSURLRequestListener<String>() {
             @Override
             public void onSuccess(String result) {
                 loginView.showToast(result);
                 loginView.setGetYzmText(false, countdown-- + "秒");
                 handler.sendEmptyMessage(1002);
             }
-
-            @Override
-            public void onFailure(String msg) {
-                loginView.showToast(msg);
-            }
-
 
         }, loginView.getTAG());
     }
@@ -61,19 +56,12 @@ public class LoginPresenter {
             loginView.showToast("验证码不能为空");
             return;
         }
-        loginModel.login(loginView.getInputPhoneNumber(), loginView.getInputYzm(), new OnNSURLRequestListener<UserBean>() {
+        loginModel.login(loginView.getInputPhoneNumber(), loginView.getInputYzm(), new AbstractOnNSURLRequestListener<UserBean>() {
             @Override
             public void onSuccess(UserBean userBean) {
                 loginView.toMainActivity(userBean);
                 loginView.showToast("登录成功");
             }
-
-            @Override
-            public void onFailure(String msg) {
-                loginView.showToast(msg);
-            }
-
-
         }, loginView.getTAG());
     }
 
@@ -126,7 +114,7 @@ public class LoginPresenter {
 
 
     public void bindPush(String clientId, String token) {
-        loginModel.bindPush(clientId, token, new OnNSURLRequestListener<String>() {
+        loginModel.bindPush(clientId, token, new AbstractOnNSURLRequestListener<String>() {
             @Override
             public void onSuccess(String response) {
 
@@ -134,7 +122,6 @@ public class LoginPresenter {
 
             @Override
             public void onFailure(String msg) {
-                       loginView.showToast(msg);
             }
         },loginView.getTAG());
     }

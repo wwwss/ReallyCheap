@@ -110,7 +110,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:text="@string/alipay"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
 
                 <ImageView
@@ -139,11 +139,41 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/cash_on_delivery"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
 
                 <ImageView
                     android:id="@+id/cashOnDelivery"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/confirm_order_pay_way_select_bg" />
+            </LinearLayout>
+
+            <include layout="@layout/widget_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="50dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <TextView
+                    android:id="@+id/businessHours"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/take_their"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <ImageView
+                    android:id="@+id/takeTheir"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:layout_gravity="center_vertical"
@@ -164,24 +194,35 @@
                 android:gravity="center_vertical"
                 android:minHeight="45dp"
                 android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:paddingLeft="10dp">
 
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remarks"
+                    android:textColor="@color/text_color_gray"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <TextView
+                    android:id="@+id/remarks"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/total_price"
-                    android:textColor="@color/text_color_grey"
+                    android:gravity="right"
+                    android:text="@string/remarks_hint"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
 
-                <TextView
-                    android:id="@+id/productsPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/text_color_grey"
-                    android:textSize="@dimen/text_size_normal" />
+                <ImageView
+                    android:id="@+id/enter"
+                    android:layout_width="44dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/all_order_enter_icon" />
             </LinearLayout>
 
             <LinearLayout
@@ -200,14 +241,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/freight"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
 
                 <TextView
                     android:id="@+id/freight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
 
@@ -227,14 +268,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/cope_with"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
 
                 <TextView
                     android:id="@+id/copeWith"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_color_grey"
+                    android:textColor="@color/text_color_gray"
                     android:textSize="@dimen/text_size_normal" />
             </LinearLayout>
 
@@ -251,7 +292,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="@string/catalogue"
-                android:textColor="@color/text_color_grey"
+                android:textColor="@color/text_color_gray"
                 android:textSize="@dimen/text_size_normal" />
 
             <ListView
@@ -283,7 +324,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/pay_price"
-            android:textColor="@color/text_color_grey"
+            android:textColor="@color/text_color_gray"
             android:textSize="@dimen/text_size_normal" />
 
 
